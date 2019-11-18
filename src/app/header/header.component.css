@@ -1,0 +1,11 @@
+header {
+  text-align: center;
+  border: 3px red solid;
+  color: white;
+  width: 100%;
+  background: green;
+  padding: 1em;
+  text-shadow: 2px 2px #ff0000;
+  border-top-left-radius: 35%;
+  border-top-right-radius: 35%;
+}

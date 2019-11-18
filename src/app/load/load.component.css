@@ -1,0 +1,63 @@
+.button-section {
+  background-color: #654321;
+  border-bottom-right-radius: 15%;
+  border-bottom-left-radius: 15%;
+}
+
+.btn-primary {
+  background-color: blue;
+  color: white;
+  border: black 3px solid;
+  border-radius: 25%;
+  font-size: 1.5em;
+  width: 150px;
+  text-shadow: 2px 1px grey;
+}
+
+.saveLoadAndDelete,
+.restartAndQuit {
+  display: inline-grid;
+}
+
+.restartAndQuit {
+  margin-left: .5em;
+}
+
+.saveLoadAndDelete {
+  margin-left: 49.5em;
+}
+
+.restart {
+  margin-top: .5em;
+  margin-bottom: .5em;
+}
+
+.quit {
+  margin-top: .5em;
+  margin-bottom: 2em;
+}
+
+.save {
+  margin-top: .5em;
+  margin-bottom: .5em;
+}
+
+.load {
+  margin-top: .5em;
+}
+
+.delete {
+  margin-top: 1em;
+  margin-bottom: 2em;
+}
+
+.modal-body ul {
+  border: 2px gray solid;
+  list-style-type: none;
+  border-radius: 5%;
+}
+
+.modal-body ul li {
+  margin-top: .5em;
+  margin-bottom: .5em;
+}

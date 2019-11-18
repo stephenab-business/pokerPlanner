@@ -1,0 +1,100 @@
+<!-- Hand Display -->
+<!-- Body Box -->
+<div class="planner">
+  <div class="container">
+    <app-header></app-header>
+    <div class="hand-statement">
+      <div class="row justify-content-center">
+        <p>{{ handStatement }}</p>
+      </div>
+    </div>
+    <div class="row justify-content-center table">
+      <div class="firstCard">
+        <img (click)="clickFirstCard()" src="assets/images/clubs - Copy.jpg">
+      </div>
+      <div class="secondCard">
+        <img (click)="clickSecondCard()" src="assets/images/clubs - Copy.jpg">
+      </div>
+      <div class="thirdCard">
+        <img (click)="clickThirdCard()" src="assets/images/clubs - Copy.jpg">
+      </div>
+      <div class="fourthCard">
+        <img (click)="clickFourthCard()" src="assets/images/clubs - Copy.jpg">
+      </div>
+      <div class="fifthCard">
+        <img (click)="clickFifthCard()" src="assets/images/clubs - Copy.jpg">
+      </div>
+    </div>
+    <!-- Two Cards in a Row -->
+    <div class="row justify-content-center hand">
+      <div class="firstHandCard">
+        <img (click)="clickFirstHandCard()" src="assets/images/clubs - Copy.jpg">
+      </div>
+      <div class="secondHandCard">
+        <img (click)="clickSecondHandCard()" src="assets/images/clubs - Copy.jpg">
+      </div>
+    </div>
+    <!-- Suit Selector -->
+    <!-- Need to have an overlay on this until card is clicked using ngIf and the change of css classes-->
+    <div class="suit">
+      <div class="row justify-content-center" [ngClass]="{overlay: !cardClicked}">
+        <div (click)="clickSuitSpade()" class="spade">
+          <img src="assets/images/Spade.jpg">
+        </div>
+        <div (click)="clickSuitClub()" class="club">
+          <img src="assets/images/Club.jpg">
+        </div>
+        <div (click)="clickSuitHeart()" class="heart">
+          <img src="assets/images/Heart.jpg">
+        </div>
+        <div (click)="clickSuitDiamond()" class="diamond">
+          <img src="assets/images/Diamond.jpg">
+        </div>
+      </div>
+    </div>
+    <!-- Card Selector -->
+    <!-- Need to have an overlay on this until card is clicked and suit is clicked using ngIf and the change of css classes -->
+    <div class="row justify-content-center value" [ngClass]="{overlay: !suitClicked}">
+      <div (click)="clickValue()" class="ace">
+        <p>A</p>
+      </div>
+      <div (click)="clickValue()" class="two">
+        <p>2</p>
+      </div>
+      <div (click)="clickValue()" class="three">
+        <p>3</p>
+      </div>
+      <div (click)="clickValue()" class="four">
+        <p>4</p>
+      </div>
+      <div (click)="clickValue()" class="five">
+        <p>5</p>
+      </div>
+      <div (click)="clickValue()" class="six">
+        <p>6</p>
+      </div>
+      <div (click)="clickValue()" class="seven">
+        <p>7</p>
+      </div>
+      <div (click)="clickValue()" class="eight">
+        <p>8</p>
+      </div>
+      <div (click)="clickValue()" class="nine">
+        <p>9</p>
+      </div>
+      <div (click)="clickValue()" class="ten">
+        <p>10</p>
+      </div>
+      <div (click)="clickValue()" class="jack">
+        <p>J</p>
+      </div>
+      <div (click)="clickValue()" class="queen">
+        <p>Q</p>
+      </div>
+      <div (click)="clickValue()" class="king">
+        <p>K</p>
+      </div>
+    </div>
+    <app-load></app-load>
+  </div>
+</div>
