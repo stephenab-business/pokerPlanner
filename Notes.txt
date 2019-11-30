@@ -1,0 +1,434 @@
+											Notes
+
+Styling:
+- Look At These References in AppDesign Folder:
+	- index.html of racks1 (for the front page design, the line behind the box)
+	- index.html of solmusic (for the text design and the spacing, margins, padding, etc.)
+	- index.html of lawyer (for the left and right separation boxes beneath the heading)
+
+
+Planner Component:
+- Must create a way to select the cards, then display the cards in the places of hand and table 
+- Must make the highlight stay when something is clicked, until the value is selected
+- Must create the function to DEFINE hand statement
+- Must create a way to connect the creation of the cards to transfer to the code
+- Must create the methods of detecting that all cards are there
+- Must highlight the cards that are the highest cards of the hand
+	- High Card is only one card
+	- Pair, Two Pair, Three of a Kind, Four of a Kind all have five cards, so in the program it will state to find the largest of whatever, and then will state the highest cards after that 
+
+
+Load Component:
+- Must define how saves will work in the database
+- Must connect to the database
+- Must define the function for saving
+- Must define the function for loading
+- Must define the function for deleting
+- Must define the function for quitting
+- Must define the function for restarting
+
+
+Learn About and Add (Maybe):
+- Cards (For Hand)
+- List Groups (For Hand)
+- Toasts (Tutorial)
+- List Groups On Cards (Removing Cards when Hovering)
+- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------
+
+// CS330 - Firebase and Angular Notes:
+
+/*
+
+Front-end is the client side, and it is developed and constructed with Angular
+
+Back-end is the server side
+
+Getting and storing data is stored in the back-end and communicated to the front-end
+
+	Creating Firebase Project:
+
+firebase.google.com
+console.firebase.google.com
+
+	Log in, then create a new project
+
+	Working with Firebase Database:
+
+npm i firebase angularfire2 --save
+
+This installs firebase and the way to work with Angular
+
+To get firebase connected to Angular Project, go to overview, click add to web application, copy the values, and then go to environment.ts and under production, type firebase: {
+	With the values here
+}
+
+In app.module.ts we must import AngularFireModule from 'angularfire2' at top and then in the imports array we type AngularFireModule.initializeApp(environment.firebase)
+
+To import the database, import AngularFireDatabaseModule from angularfire2/database at the top, and then AngularFireDatabaseModule in imports
+
+
+	Reading Lists:
+
+In app.component.ts, you must import AngularFireDatabase at the top like normal, and then in the class AppComponent, create a constructor
+
+Code should look like:
+
+course: any[];
+
+constructor(db: AngularFireDatabase) {
+	db.list('/courses').subscribe(courses => this.courses = courses;
+	console.log(this.course);
+	)
+}
+
+To read or write anything, you must go to the firebase database rules and change read to true and write to true
+
+Every change must be published in Firebase 
+
+Must make sure that all the database values are created the same
+
+Example of reading data from database:
+
+In app.component.html
+<ul>
+	<li *ngFor="let course of courses">
+		{{ course.$value }}
+	</li>
+</ul>
+
+This displays the values from the database
+
+*/
+
+/*
+		Adding Bootstrap:
+
+npm install bootstrap 
+
+npm install jquery popper.js --save
+
+In angular.json, under styles, add 
+"./node_modules/bootstrap/dist/css/boostrap.min.css"
+
+In angular.json, under scripts, add
+"./node_modules/jquery/dist/jquery.slim.min.js",
+"./node_modules/popper.js/dist/popper.min.js",
+"./node_modules/bootstrap/dist/js/bootstrap.min.js"
+
+		Using Bootstrap with Angular:
+
+Include the link to bootstrap css in the head of the index.html document of the app
+
+In the body, include the script to jquery and then the bootstrap js
+
+Can remove the body elements including jquery and such and do it through the other way
+
+In app.module.ts
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+In imports:
+
+NgbModule.forRoot()
+
+
+
+
+
+Firebase Email Authentication:
+
+In imports of app.module.ts, type AngularFireModule.initializeApp(environment.firebase)
+AngularFireModule,
+AngularFirestoreModule
+
+Then at the top, type
+{ AngularFireModule } from '@angular/fire';
+{ AngularFireAuthModule } from '@angular/fire/auth';
+{ AngularFirestoreModule } from '@angular/fire/firestore';
+
+ng g c auth/registration
+
+ng g c auth/login
+
+ng g c home
+
+ng g s auth/auth
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Display both rows at the same time, both grayed out until the user selects a card -*
+
+Once the user selects a card, the first row is shown, and then once that is selected, first row is grayed out and second row is shown -*
+
+Second solution is that nothing is shown at first, but then once selecting a card it shows in the blank space, and then the values take the place of the first row -*
+
+Display the hand at the top -*
+
+Display the four buttons at bottom, have them disabled until the planner is over, quit and load will always be enabled
+
+When loading, a scrollable pop up should appear for the history
+
+Need a delete button
+
+Can do delete and load in one component or two
+
+Need to decide whether to allow the same names and show an error = will not allow the same names
+
+If not allowing the same name, must run through the list of saves and make sure the name is not already taken
+
+
+
+
+
+1. Fix front-end
+
+2. Store images in the storage
+
+3. Upload fiftytwo images
+
+4. In database, have an array of 52 elements, each element is a URL link to a new card
+
+5. Learn how to pull the images and swap the images that is there normally
+
+6. How to put the image in the HTML
+
+
+My Order of Doing Things:
+
+1. Fix Front-End
+	- Create Different Buttons
+	- Decrease The Space
+	- Use Templates to Make It Look Better
+	- Get HD Cards and Suits
+
+2. Figure out how to make the card image pop up by the user selecting the certain attributes of the card
+3. Figure out how to store images in storage
+4. Figure out how to upload the 52 images into the storage
+5. In database, have the array of 52 elements, which are each URL links to the cards
+6. Learn how to pull the images and swap the images out in the HTML page
+7. How to store the highlights for the images
+8. How to change the hand statement
+9. Hand algorithms
+
+
+
+HOMEWORK:
+
+Wed. 27, 5:30 - Backend
+after Mon. 2, 5:30 - Not allowed to submit anymore changes
+
+
+GITHUB CLI:
+
+Create a repository
+
+Have the clone link
+
+git clone <link>
+
+Go to that folder in CL
+
+cp -a "Name of Folder" ../* .
+
+git add .
+
+git commit -m "initial commit"
+
+git push origin master
+
+Always push origin, change master to the name of the branch
+
+
+If you make any changes, type
+
+git add .
+
+git commit -m "Added routing"
+
+git push origin master
+
+
+Reporting Issue:
+Go to GitHub
+
+Click on Issues
+"generic location": "specific location" - "what happens"
+
+Example:
+Main screen: email input - accepts input without @
+
+Then the body is used to create information on the bug, such as
+
+A User can type in an incorrect email address and still login. No error is displayed.
+
+Use snipping tool to cut out the image of the error, as the images are very important
+
+Can just copy and paste in the box without saving it, and can click preview of message
+
+Can Assign a person to the issue
+
+Can label the issue
+
+Can create new labels
+
+Must respond to issues
+
+After testing, must mark as closed to get rid of it
+
+
+
+
+
+
+For Tester:
+
+In Command Line
+
+Clone the repository
+
+In CLI
+
+git pull
+
+This updates all the files in the project that you have
+
+
+To Create New Branch:
+
+git checkout -b nameOfBranch
+
+
+To Go Back In Time:
+
+git checkout nameOfHash
+
+
+
+
+Fix Front-End
+	- Create Different Buttons
+	- Decrease The Space
+	- Use Templates to Make It Look Better
+	- Get HD Cards and Suits
+
+Figure out how to make the card image pop up by the user selecting the certain attributes of the card
+
+- The card images will be stored under a set of functions
+
+- When the user selects a suit, it searches only within that certain suit folder
+
+- When the user selects the value of the card, it will return the card image of that suit and value
+
+- The card will be stored in the database according to those attributes: the suit, the value, and the color
+
+
+
+Figure out how to store images in storage
+
+- 
+
+
+
+Figure out how to upload the 52 images into the storage
+
+- 
+
+
+
+In database, have the array of 52 elements, which are each URL links to the cards
+
+-
+
+
+
+Learn how to pull the images and swap the images out in the HTML page
+
+-
+
+
+
+How to store the highlights for the images
+
+- The indices of the cards are also stored whenever it is saved, the indices are then used to highlight the cards again
+
+
+
+How to change the hand statement
+
+- Returns the indices of the cards that are the highest cards
+
+- Returns a String stating the Name of the Hand, that statement will be the replacement for the hand statement in the HTML by String Interpolation
+
+
+
+Hand algorithms
+
+-
+
+

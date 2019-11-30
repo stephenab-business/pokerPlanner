@@ -1,104 +1,41 @@
 .planner {
-  background: green;
-  border: 2px solid red;
-  border-bottom: none;
+  background-color: green;
 }
 
-.hand-statement {
-  width: 100%;
-  color: white;
+.table-cards {
+  background-color: pink;
+}
+
+.table-cards img {
+  width: 20%;
+}
+
+.hand-cards {
+  background-color: purple;
+}
+
+.hand-cards img {
+  width: 20%;
+}
+
+.suits {
+  background-color: blue;
+}
+
+.suits img {
+  width: 20%;
+}
+
+.values {
   background-color: red;
-  border-bottom-left-radius: 40%;
-  border-bottom-right-radius: 40%;
-  text-shadow: 0 .25em green;
 }
 
-.hand-statement p {
-  font-size: 4em;
-}
-
-.table {
-  margin-top: 4em;
-  width: 103%;
-}
-
-.table img {
-  display: inline-grid;
-  transform: rotate(90deg);
-
-}
-
-.table img:hover {
-  outline: 5px solid red;
-}
-
-.hand {
-  margin-top: 8em;
-}
-
-.hand img {
-  display: inline-grid;
-  transform: rotate(90deg);
-  margin-bottom: 4em;
-}
-
-.suit {
-  margin-top: 2em;
-  background-color: none;
-  margin-bottom: 4em;
-}
-
-.suit img {
-  width: 9em;
-}
-
-.hand img:hover {
-  outline: 5px solid red;
-}
-
-.suit img:hover {
-  outline: 5px solid red;
-}
-
-.spade img {
-  transform: rotate(180deg);
-  margin-left: 2.5em;
-  margin-right: 6em;
-}
-
-.club img {
-  transform: rotate(180deg);
-  margin-left: 2.5em;
-  margin-right: 2.5em;
-}
-
-.heart img {
-  margin-left: 2.5em;
-  margin-right: 2.5em;
-}
-
-.diamond img {
-  margin-left: 6em;
-  margin-right: 2.5em;
-}
-
-.overlay {
-  opacity: .6;
-  /* Change to be dark gray */
-  background-color: black;
-  color: grey;
-}
-
-.value div:hover {
-  outline: 5px solid red;
-}
-
-.value {
-  width: 100%;
-}
-
-.value p {
-  font-size: 3em;
-  margin-left: .5em;
-  margin-right: .5em;
-}
+/*
+  .values li will be a button that have a highlight and click element
+  .suits li will be a button that have a highlight and click element
+  Overlay effect must be added to each of the .values li and .suits li
+  Highlight effect for whenever a person is hovering over a card, suit, or value
+  Animation for the cards flipping over
+  Poker Background along with Poker Chips
+  The Buttons are Poker Chips
+*/

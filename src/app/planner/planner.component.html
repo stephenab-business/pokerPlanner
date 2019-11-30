@@ -1,100 +1,108 @@
-<!-- Hand Display -->
-<!-- Body Box -->
 <div class="planner">
   <div class="container">
-    <app-header></app-header>
-    <div class="hand-statement">
-      <div class="row justify-content-center">
-        <p>{{ handStatement }}</p>
-      </div>
-    </div>
-    <div class="row justify-content-center table">
-      <div class="firstCard">
-        <img (click)="clickFirstCard()" src="assets/images/clubs - Copy.jpg">
-      </div>
-      <div class="secondCard">
-        <img (click)="clickSecondCard()" src="assets/images/clubs - Copy.jpg">
-      </div>
-      <div class="thirdCard">
-        <img (click)="clickThirdCard()" src="assets/images/clubs - Copy.jpg">
-      </div>
-      <div class="fourthCard">
-        <img (click)="clickFourthCard()" src="assets/images/clubs - Copy.jpg">
-      </div>
-      <div class="fifthCard">
-        <img (click)="clickFifthCard()" src="assets/images/clubs - Copy.jpg">
-      </div>
-    </div>
-    <!-- Two Cards in a Row -->
-    <div class="row justify-content-center hand">
-      <div class="firstHandCard">
-        <img (click)="clickFirstHandCard()" src="assets/images/clubs - Copy.jpg">
-      </div>
-      <div class="secondHandCard">
-        <img (click)="clickSecondHandCard()" src="assets/images/clubs - Copy.jpg">
-      </div>
-    </div>
-    <!-- Suit Selector -->
-    <!-- Need to have an overlay on this until card is clicked using ngIf and the change of css classes-->
-    <div class="suit">
-      <div class="row justify-content-center" [ngClass]="{overlay: !cardClicked}">
-        <div (click)="clickSuitSpade()" class="spade">
-          <img src="assets/images/Spade.jpg">
-        </div>
-        <div (click)="clickSuitClub()" class="club">
-          <img src="assets/images/Club.jpg">
-        </div>
-        <div (click)="clickSuitHeart()" class="heart">
-          <img src="assets/images/Heart.jpg">
-        </div>
-        <div (click)="clickSuitDiamond()" class="diamond">
-          <img src="assets/images/Diamond.jpg">
+    <form [formGroup]="cardForm">
+      <div class="row justify-content-center text-center">
+        <div class="col-lg-8">
+          <ul class="list-unstyled table-cards">
+            <li class="d-inline">
+              <img (click)="clickFirstCard()" class="card1" src="{{firstCardSource}}">
+            </li>
+            <li class="d-inline">
+              <img (click)="clickSecondCard()" class="card2" src="{{secondCardSource}}">
+            </li>
+            <li class="d-inline">
+              <img (click)="clickThirdCard()" class="card3" src="{{thirdCardSource}}">
+            </li>
+            <li class="d-inline">
+              <img (click)="clickFourthCard()" class="card4" src="{{fourthCardSource}}">
+            </li>
+            <li class="d-inline">
+              <img (click)="clickFifthCard()" class="card5" src="{{fifthCardSource}}">
+            </li>
+          </ul>
         </div>
       </div>
-    </div>
-    <!-- Card Selector -->
-    <!-- Need to have an overlay on this until card is clicked and suit is clicked using ngIf and the change of css classes -->
-    <div class="row justify-content-center value" [ngClass]="{overlay: !suitClicked}">
-      <div (click)="clickValue()" class="ace">
-        <p>A</p>
+      <div class="row justify-content-center text-center">
+        <div class="col-lg-8">
+          <ul class="list-unstyled hand-cards">
+            <li class="d-inline">
+              <img (click)="clickFirstHandCard()" class="card6" src="{{sixthCardSource}}">
+            </li>
+            <li class="d-inline">
+              <img (click)="clickSecondHandCard()" class="card7" src="{{seventhCardSource}}">
+            </li>
+          </ul>
+        </div>
       </div>
-      <div (click)="clickValue()" class="two">
-        <p>2</p>
+      <div class="row justify-content-center text-center">
+        <div class="col-lg-8">
+          <ul class="list-unstyled suits">
+            <li class="d-inline">
+              <img (click)="clickSuitSpade()" src="assets/images/Suits/Spades.png">
+            </li>
+            <li class="d-inline">
+              <button (click)="clickSuitDiamond()" class="btn btn-light">
+                <img src="assets/images/Suits/Diamonds.png">
+              </button>
+            </li>
+            <li class="d-inline">
+              <button (click)="clickSuitHeart()" class="btn btn-light">
+                <img src="assets/images/Suits/Hearts.png">
+              </button>
+            </li>
+            <li class="d-inline">
+              <button (click)="clickSuitClub()" class="btn btn-light">
+                <img src="assets/images/Suits/Clubs.png">
+              </button>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div (click)="clickValue()" class="three">
-        <p>3</p>
+      <div class="row justify-content-center text-center">
+        <div class="col-lg-8">
+          <ul class="list-unstyled values">
+            <li class="d-inline">
+              <p (click)="clickValue(14)">A</p>
+            </li>
+            <li class="d-inline">
+              <button (click)="clickValue(2)" class="btn btn-light">2</button>
+            </li>
+            <li class="d-inline">
+              <button (click)="clickValue(3)" class="btn btn-light">3</button>
+            </li>
+            <li class="d-inline">
+              <button (click)="clickValue(4)" class="btn btn-light">4</button>
+            </li>
+            <li class="d-inline">
+              <button (click)="clickValue(5)" class="btn btn-light">5</button>
+            </li>
+            <li class="d-inline">
+              <button (click)="clickValue(6)" class="btn btn-light">6</button>
+            </li>
+            <li class="d-inline">
+              <button (click)="clickValue(7)" class="btn btn-light">7</button>
+            </li>
+            <li class="d-inline">
+              <button (click)="clickValue(8)" class="btn btn-light">8</button>
+            </li>
+            <li class="d-inline">
+              <button (click)="clickValue(9)" class="btn btn-light">9</button>
+            </li>
+            <li class="d-inline">
+              <button (click)="clickValue(10)" class="btn btn-light">10</button>
+            </li>
+            <li class="d-inline">
+              <button (click)="clickValue(11)" class="btn btn-light">J</button>
+            </li>
+            <li class="d-inline">
+              <button (click)="clickValue(12)" class="btn btn-light">Q</button>
+            </li>
+            <li class="d-inline">
+              <button (click)="clickValue(13)" class="btn btn-light">K</button>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div (click)="clickValue()" class="four">
-        <p>4</p>
-      </div>
-      <div (click)="clickValue()" class="five">
-        <p>5</p>
-      </div>
-      <div (click)="clickValue()" class="six">
-        <p>6</p>
-      </div>
-      <div (click)="clickValue()" class="seven">
-        <p>7</p>
-      </div>
-      <div (click)="clickValue()" class="eight">
-        <p>8</p>
-      </div>
-      <div (click)="clickValue()" class="nine">
-        <p>9</p>
-      </div>
-      <div (click)="clickValue()" class="ten">
-        <p>10</p>
-      </div>
-      <div (click)="clickValue()" class="jack">
-        <p>J</p>
-      </div>
-      <div (click)="clickValue()" class="queen">
-        <p>Q</p>
-      </div>
-      <div (click)="clickValue()" class="king">
-        <p>K</p>
-      </div>
-    </div>
-    <app-load></app-load>
+    </form>
   </div>
 </div>
