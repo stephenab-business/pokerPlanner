@@ -1,1 +1,18 @@
-<p>delete works!</p>
+<!-- Delete Button -->
+<button type="button" class="btn btn-primary delete" (click)="openModal(delete)">Delete</button>
+<ng-template #delete>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Delete</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Select which save you want to delete:</p>
+    <div class="container">
+      <ul>
+        <li>{{ nameOfSave }}</li>
+      </ul>
+    </div>
+  </div>
+</ng-template>

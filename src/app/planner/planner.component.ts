@@ -11,11 +11,10 @@ import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 })
 export class PlannerComponent implements OnInit {
 
-  constructor(private crud:FirebaseCrudService, private fb:FormBuilder, private storage: AngularFireStorage) { 
+  constructor(private crud:FirebaseCrudService, private fb:FormBuilder, private storage: AngularFireStorage) {
   }
 
   ngOnInit() {
-
   }
 
   handStatement:String;
@@ -102,7 +101,6 @@ export class PlannerComponent implements OnInit {
    *
    *
    */
-
 
   value:number;
   suit:number;
@@ -207,6 +205,7 @@ export class PlannerComponent implements OnInit {
 	      this.suit = 1;
 	      this.getCard(this.suit, value);
 	      this.stepsUntilFinished();
+	      this.resetVariables();
 	    }
 
 	    else if (this.diamondClicked == true) {
@@ -269,6 +268,7 @@ export class PlannerComponent implements OnInit {
       // SUIT AND VALUE IS UNDEFINED AND SETSUIT AND SETVALUE HAVE NO CLUE WHAT TO DO WITH IT
       this.firstCard.setSuit(suit);
       this.firstCard.setValue(value);
+
       this.firstCardSource = this.firstCard.whichCardSource(this.firstCard);
       this.cardForm.patchValue({suit: this.firstCard.suit});
       this.cardForm.patchValue({value: this.firstCard.value})
@@ -606,12 +606,11 @@ export class Card {
       }
     }
 
-    return nameOfCard;
 
   }
 
     whichCardSource(card:Card) {
-    	let nameOfCard:string;
+    	let nameOfCard:string = "";
 
     if (card.suit == 1) {
       switch(card.value) {
@@ -736,9 +735,7 @@ export class Card {
         break;
       }
     }
-
     return nameOfCard;
-
   }
 
 }
@@ -775,7 +772,7 @@ export class HandAndTable {
   compareArrays(sortedArray:Card[]) {
      
      // Sorted Array needs to be the five highest cards
-    let indexOfHighestCards:number[];
+    let indexOfHighestCards:number[] = [];
 
     for (let i = 0; i < sortedArray.length; i++) {
       for (let j = 0; j < this.handAndTable.length; j++) {
@@ -790,11 +787,11 @@ export class HandAndTable {
   }
 
   sortByValue() {
-    let i:number;
-    let j:number;
-    let min_j:number;
+    let i:number = 0;
+    let j:number = 0;
+    let min_j:number = 0;
 
-    let copyArray:Card[];
+    let copyArray:Card[] = [];
 
     for(i = 0; i < this.handAndTable.length; i++) {
       copyArray[i] = this.handAndTable[i];
@@ -821,7 +818,7 @@ export class HandAndTable {
     let j:number;
     let min_j:number;
 
-    let copyArray:Card[];
+    let copyArray:Card[] = [];
 
     for(i = 0; i < this.handAndTable.length; i++) {
       copyArray[i] = this.handAndTable[i];
@@ -843,8 +840,8 @@ export class HandAndTable {
   }
 
   removeDuplicates(sortedArray:Card[]) {
-    let temp:Card[];
-    let j:number;
+    let temp:Card[] = [];
+    let j:number = 0;
 
     for(let i = 0; i < sortedArray.length; i++) {
       temp[i] = sortedArray[i];
@@ -883,7 +880,7 @@ export class HandAndTable {
     else if (howManyCards == 2) {
       let largestValueOne = 0;
       let largestValueTwo = 0;
-      let arrayOfTwoHighCards:Card[];
+      let arrayOfTwoHighCards:Card[] = [];
 
       for (let i = 0; i < sortedArray.length; i++) {
         if (sortedArray[i].value > largestValueOne) {
@@ -912,7 +909,7 @@ export class HandAndTable {
       let largestValueOne = 0;
       let largestValueTwo = 0;
       let largestValueThree = 0;
-      let arrayOfThreeHighCards:Card[];
+      let arrayOfThreeHighCards:Card[] = [];
 
       for (let i = 0; i < sortedArray.length; i++) {
         if (sortedArray[i].value > largestValueOne) {
@@ -950,7 +947,7 @@ export class HandAndTable {
       let largestValueTwo = 0;
       let largestValueThree = 0;
       let largestValueFour = 0;
-      let arrayOfFourHighCards:Card[];
+      let arrayOfFourHighCards:Card[] = [];
 
       for (let i = 0; i < sortedArray.length; i++) {
         if (sortedArray[i].value > largestValueOne) {
@@ -1003,8 +1000,8 @@ export class HandAndTable {
 
   fourOfAKind() {
     let arr:Card[] = this.sortByValue();
-    let arrayOfHighestCards:Card[];
-    let arrayOfRemainingCards:Card[];
+    let arrayOfHighestCards:Card[] = [];
+    let arrayOfRemainingCards:Card[] = [];
 
     /*
 
@@ -1068,7 +1065,7 @@ export class HandAndTable {
 
   fullHouse() {
     let arr:Card[] = this.sortByValue();
-    let arrayOfHighestCards:Card[];
+    let arrayOfHighestCards:Card[] = [];
 
     for (let i = 0; i < this.handAndTable.length; i++) {
       arr[i] = this.handAndTable[i];
@@ -1139,7 +1136,7 @@ export class HandAndTable {
 
   flush() {
     let arr:Card[] = this.sortBySuit();
-    let arrayOfHighestCards:Card[];
+    let arrayOfHighestCards:Card[] = [];
 
     // 0 through 4
     if (arr[0].suit == arr[1].suit && arr[1].suit == arr[2].suit && arr[2].suit == arr[3].suit && arr[3].suit == arr[4].suit) {
@@ -1180,7 +1177,7 @@ export class HandAndTable {
 
   straight() {
     let arr:Card[] = this.removeDuplicates(this.sortByValue());
-    let arrayOfHighestCards:Card[];
+    let arrayOfHighestCards:Card[] = [];
 
     if (arr.length >= 5) {
       if (arr[arr.length - 1].value == 14) {
@@ -1225,9 +1222,9 @@ export class HandAndTable {
 
   threeOfAKind() {
     let arr:Card[] = this.sortByValue();
-    let arrayOfHighestCards:Card[];
-    let arrayOfRemainingCards:Card[];
-    let arrayOfTwoOtherCards:Card[];
+    let arrayOfHighestCards:Card[] = [];
+    let arrayOfRemainingCards:Card[] = [];
+    let arrayOfTwoOtherCards:Card[] = [];
 
 
     // FIRST SITUATION
@@ -1313,8 +1310,8 @@ export class HandAndTable {
 
   twoPair() {
     let arr:Card[] = this.sortByValue();
-    let arrayOfHighestCards:Card[];
-    let arrayOfRemainingCards:Card[];
+    let arrayOfHighestCards:Card[] = [];
+    let arrayOfRemainingCards:Card[] = [];
 
     // FIRST SITUATION
     if (arr[0].value == arr[1].value && arr[2].value == arr[3].value) {
@@ -1434,7 +1431,7 @@ export class HandAndTable {
 
   onePair() {
     let arr:Card[] = this.sortByValue();
-    let arrayOfCards:number[];
+    let arrayOfCards:number[] = [];
 
     for (let i = 0; i < arr.length; i++) {
       for (let j = 1; j < arr.length; j++)

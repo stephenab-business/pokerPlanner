@@ -3,16 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  firebaseConfig: {
-  	apiKey: "AIzaSyCZtSAE1gv_wbkj9apu09512s9kiykEvTw",
-      authDomain: "poker-planner-5428a.firebaseapp.com",
-      databaseURL: "https://poker-planner-5428a.firebaseio.com",
-      projectId: "poker-planner-5428a",
-      storageBucket: "poker-planner-5428a.appspot.com",
-      messagingSenderId: "809907076890",
-      appId: "1:809907076890:web:abf14024e8d01e5c2ef6a3"
-  }
+  production: false
 };
 
 /*

@@ -1,90 +1,18 @@
-<div class="row button-section">
-  <div class="restartAndQuit">
-    <!-- Restart Button -->
-    <button type="button" class="btn btn-primary restart" (click)="openModal(restart)">Restart</button>
-    <ng-template #restart>
-      <div class="modal-header">
-        <h4 class="modal-title pull-left">Restart</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body text-center">
-        <p>Are you sure you want to restart?</p>
-        <button type="button" class="btn btn-default" (click)="confirm()">Yes</button>
-        <button type="button" class="btn btn-primary" (click)="decline()">No</button>
-      </div>
-      <!-- Two Buttons to select yes or no -->
-    </ng-template>
-    <!-- Quit Button -->
-    <button type="button" class="btn btn-primary quit" (click)="openModal(quit)">Quit</button>
-    <ng-template #quit>
-      <div class="modal-header">
-        <h4 class="modal-title pull-left">Quit</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body text-center">
-        <p>Are you sure you want to quit?</p>
-        <button type="button" class="btn btn-default" (click)="confirm()">Yes</button>
-        <button type="button" class="btn btn-primary" (click)="decline()">No</button>
-      </div>
-      <!-- Two Buttons to select yes or no -->
-    </ng-template>
+<!-- Load Button -->
+<button type="button" class="btn btn-primary load" (click)="openModal(load)">Load</button>
+<ng-template #load>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Load</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
-  <div class="saveLoadAndDelete">
-    <!-- Save Button -->
-    <button type="button" class="btn btn-primary save" (click)="openModal(save)">Save</button>
-    <ng-template #save>
-      <div class="modal-header">
-        <h4 class="modal-title pull-left">Save Your Hand</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Name for your hand:</p>
-        <input type="text">
-      </div>
-      <!-- Input for the name of hand -->
-      <input>
-    </ng-template>
-    <!-- Load Button -->
-    <button type="button" class="btn btn-primary load" (click)="openModal(load)">Load</button>
-    <ng-template #load>
-      <div class="modal-header">
-        <h4 class="modal-title pull-left">Load</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Select which save you want to load:</p>
-        <div class="container">
-          <ul>
-            <li>{{ nameOfSave }}</li>
-          </ul>
-        </div>
-      </div>
-    </ng-template>
-    <!-- Delete Button -->
-    <button type="button" class="btn btn-primary delete" (click)="openModal(delete)">Delete</button>
-    <ng-template #delete>
-      <div class="modal-header">
-        <h4 class="modal-title pull-left">Delete</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Select which save you want to delete:</p>
-        <div class="container">
-          <ul>
-            <li>{{ nameOfSave }}</li>
-          </ul>
-        </div>
-      </div>
-    </ng-template>
+  <div class="modal-body">
+    <p>Select which save you want to load:</p>
+    <div class="container">
+      <ul>
+        <li>{{ nameOfSave }}</li>
+      </ul>
+    </div>
   </div>
-</div>
+</ng-template>

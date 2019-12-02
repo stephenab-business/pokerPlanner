@@ -38,20 +38,22 @@
         <div class="col-lg-8">
           <ul class="list-unstyled suits">
             <li class="d-inline">
-              <img (click)="clickSuitSpade()" src="assets/images/Suits/Spades.png">
+              <button (click)="clickSuitSpade()" class="btn btn-light" type="button">
+                <img src="assets/images/Suits/Spades.png">
+              </button>
             </li>
             <li class="d-inline">
-              <button (click)="clickSuitDiamond()" class="btn btn-light">
+              <button (click)="clickSuitDiamond()" class="btn btn-light" type="button">
                 <img src="assets/images/Suits/Diamonds.png">
               </button>
             </li>
             <li class="d-inline">
-              <button (click)="clickSuitHeart()" class="btn btn-light">
+              <button (click)="clickSuitHeart()" class="btn btn-light" type="button">
                 <img src="assets/images/Suits/Hearts.png">
               </button>
             </li>
             <li class="d-inline">
-              <button (click)="clickSuitClub()" class="btn btn-light">
+              <button (click)="clickSuitClub()" class="btn btn-light" type="button">
                 <img src="assets/images/Suits/Clubs.png">
               </button>
             </li>
@@ -62,47 +64,65 @@
         <div class="col-lg-8">
           <ul class="list-unstyled values">
             <li class="d-inline">
-              <p (click)="clickValue(14)">A</p>
+              <button (click)="clickValue(14)" class="btn btn-light" type="button">A</button>
             </li>
             <li class="d-inline">
-              <button (click)="clickValue(2)" class="btn btn-light">2</button>
+              <button (click)="clickValue(2)" class="btn btn-light" type="button">2</button>
             </li>
             <li class="d-inline">
-              <button (click)="clickValue(3)" class="btn btn-light">3</button>
+              <button (click)="clickValue(3)" class="btn btn-light" type="button">3</button>
             </li>
             <li class="d-inline">
-              <button (click)="clickValue(4)" class="btn btn-light">4</button>
+              <button (click)="clickValue(4)" class="btn btn-light" type="button">4</button>
             </li>
             <li class="d-inline">
-              <button (click)="clickValue(5)" class="btn btn-light">5</button>
+              <button (click)="clickValue(5)" class="btn btn-light" type="button">5</button>
             </li>
             <li class="d-inline">
-              <button (click)="clickValue(6)" class="btn btn-light">6</button>
+              <button (click)="clickValue(6)" class="btn btn-light" type="button">6</button>
             </li>
             <li class="d-inline">
-              <button (click)="clickValue(7)" class="btn btn-light">7</button>
+              <button (click)="clickValue(7)" class="btn btn-light" type="button">7</button>
             </li>
             <li class="d-inline">
-              <button (click)="clickValue(8)" class="btn btn-light">8</button>
+              <button (click)="clickValue(8)" class="btn btn-light" type="button">8</button>
             </li>
             <li class="d-inline">
-              <button (click)="clickValue(9)" class="btn btn-light">9</button>
+              <button (click)="clickValue(9)" class="btn btn-light" type="button">9</button>
             </li>
             <li class="d-inline">
-              <button (click)="clickValue(10)" class="btn btn-light">10</button>
+              <button (click)="clickValue(10)" class="btn btn-light" type="button">10</button>
             </li>
             <li class="d-inline">
-              <button (click)="clickValue(11)" class="btn btn-light">J</button>
+              <button (click)="clickValue(11)" class="btn btn-light" type="button">J</button>
             </li>
             <li class="d-inline">
-              <button (click)="clickValue(12)" class="btn btn-light">Q</button>
+              <button (click)="clickValue(12)" class="btn btn-light" type="button">Q</button>
             </li>
             <li class="d-inline">
-              <button (click)="clickValue(13)" class="btn btn-light">K</button>
+              <button (click)="clickValue(13)" class="btn btn-light" type="button">K</button>
             </li>
           </ul>
         </div>
       </div>
     </form>
+  </div>
+  <div class="row justify-content-center text-center">
+    <div class="col-lg-8">
+      <ul class="list-unstyled crud-buttons">
+        <li class="d-inline">
+          <app-save></app-save>
+        </li>
+        <li class="d-inline">
+          <app-load></app-load>
+        </li>
+        <li class="d-inline">
+          <app-delete></app-delete>
+        </li>
+        <li class="d-inline">
+          <app-restart></app-restart>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>

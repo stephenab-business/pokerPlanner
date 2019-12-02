@@ -1,1 +1,15 @@
-<p>restart works!</p>
+<button type="button" class="btn btn-primary restart" (click)="openModal(restart)">Restart</button>
+<ng-template #restart>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Restart</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <p>Are you sure you want to restart?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()">Yes</button>
+    <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+  </div>
+  <!-- Two Buttons to select yes or no -->
+</ng-template>

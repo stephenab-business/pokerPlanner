@@ -7,13 +7,14 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal'
   templateUrl: './load.component.html',
   styleUrls: ['./load.component.css']
 })
+
 export class LoadComponent implements OnInit {
 
-  nameOfSave:String = "saveNumberOne";
-
+  nameOfSave = 'name of save';
   modalRef: BsModalRef;
-  constructor(private modalService: BsModalService) {}
- 
+
+  constructor(private modalService: BsModalService) {} 
+  
   openModal(template: any) {
     this.modalRef = this.modalService.show(template);
   }
@@ -28,4 +29,5 @@ export class LoadComponent implements OnInit {
   decline(): void {
     this.modalRef.hide();
   }
+
 }

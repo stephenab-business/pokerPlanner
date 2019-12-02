@@ -8,6 +8,7 @@
 
 .table-cards img {
   width: 20%;
+  padding: 10px;
 }
 
 .hand-cards {
@@ -16,10 +17,21 @@
 
 .hand-cards img {
   width: 20%;
+  padding: 10px;
 }
 
 .suits {
   background-color: blue;
+  padding: 10px;
+}
+
+.suits li {
+  padding: 10px;
+}
+
+.suits button {
+  height: 3em;
+  border-radius: 15%;
 }
 
 .suits img {
@@ -28,6 +40,22 @@
 
 .values {
   background-color: red;
+  padding: 10px;
+}
+
+.values li {
+  padding: 5px;
+}
+
+.values button {
+  width: 2.75em;
+  border-radius: 15%;
+}
+
+.crud-buttons li {
+  padding-top: 0;
+  padding-bottom: 0;
+  padding: 25px;
 }
 
 /*

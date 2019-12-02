@@ -1,1 +1,15 @@
-<p>save works!</p>
+<button type="button" class="btn btn-danger save" (click)="openModal(save)">Save</button>
+<ng-template #save>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Save Your Hand</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Name for your hand:</p>
+    <input type="text">
+  </div>
+  <!-- Input for the name of hand -->
+  <input>
+</ng-template>
