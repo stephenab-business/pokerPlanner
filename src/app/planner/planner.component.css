@@ -2,6 +2,12 @@
   background-color: green;
 }
 
+.cards {
+  background-color: yellow;
+  padding-top: 10px;
+  margin-bottom: 10px;
+}
+
 .table-cards {
   background-color: pink;
 }
@@ -23,6 +29,7 @@
 .suits {
   background-color: blue;
   padding: 10px;
+  margin-bottom: 10px;
 }
 
 .suits li {

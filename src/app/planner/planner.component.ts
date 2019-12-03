@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { FirebaseCrudService } from '../firebase-crud.service';
 import { Observable } from 'rxjs';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { PlannerDataService } from "../planner-data.service";
 
 @Component({
   selector: 'app-planner',
@@ -11,13 +12,19 @@ import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 })
 export class PlannerComponent implements OnInit {
 
-  constructor(private crud:FirebaseCrudService, private fb:FormBuilder, private storage: AngularFireStorage) {
+  constructor(private storage: AngularFireStorage, private data:PlannerDataService) {
+    
   }
 
   ngOnInit() {
+    this.data.currentHandAndTable.subscribe(deckOfCards => this.deckOfCards = deckOfCards);
   }
 
-  handStatement:String;
+  newDeckOfCards() {
+    this.data.changeHandAndTable(this.deckOfCards);
+  }
+
+  handStatement:string = '';
 
   imageSource = "assets/images/Back Covers/Pomegranate.png";
   firstCardSource:string = "assets/images/Back Covers/Pomegranate.png";
@@ -37,63 +44,6 @@ export class PlannerComponent implements OnInit {
    *
    */
 
-  card:any;
-  cardForm:FormGroup;
-
-  buildForm() {
-    this.cardForm = this.fb.group({
-      suit:[],
-      value:[],
-      index:[],
-      highlight:[],
-      url:[]
-    });
-
-    this.card.subscribe(card => {
-      this.cardForm.patchValue(card);
-    })
-  }
-
-  startNewCard() {
-    this.card = this.crud.createCard();
-    this.buildForm();
-  }
-
-  saveCardChanges() {
-    const data = this.cardForm.value;
-    this.crud.updateCard(this.card, data);
-  }
-
-  deck:any;
-  deckForm:FormGroup;
-
-  buildFormTwo() {
-    this.deckForm = this.fb.group({
-      card1:[''],
-      card2:[''],
-      card3:[''],
-      card4:[''],
-      card5:[''],
-      card6:[''],
-      card7:['']
-    });
-
-    this.deck.subscribe(deck => {
-      this.deckForm.patchValue(deck);
-    })
-  }
-
-  startNewDeck() {
-    this.deck = this.crud.createDeck();
-    this.buildFormTwo();
-  }
-
-  saveDeckChanges() {
-    const data = this.deckForm.value;
-    this.crud.updateCard(this.deck, data);
-  }
-
-
   /*
    *
    *
@@ -102,8 +52,8 @@ export class PlannerComponent implements OnInit {
    *
    */
 
-  value:number;
-  suit:number;
+  value:number = 0;
+  suit:number = 0;
 
   firstCardClicked:boolean = false;
   secondCardClicked:boolean = false;
@@ -121,15 +71,15 @@ export class PlannerComponent implements OnInit {
   cardClicked:boolean = false;
   suitClicked:boolean = false;
 
-  amountOfCardsClicked:number;
+  amountOfCardsClicked:number = 0;
 
-  firstCard:Card;
-  secondCard:Card;
-  thirdCard:Card;
-  fourthCard:Card;
-  fifthCard:Card;
-  sixthCard:Card;
-  seventhCard:Card;
+  firstCard:Card = new Card(0,0);
+  secondCard:Card = new Card(0,0);
+  thirdCard:Card = new Card(0,0);
+  fourthCard:Card = new Card(0,0);
+  fifthCard:Card = new Card(0,0);
+  sixthCard:Card = new Card(0,0);
+  seventhCard:Card = new Card(0,0);
   deckOfCards = new HandAndTable(this.firstCard, this.secondCard, this.thirdCard, this.fourthCard, this.fifthCard, this.sixthCard, this.seventhCard);
 
   /*
@@ -205,25 +155,28 @@ export class PlannerComponent implements OnInit {
 	      this.suit = 1;
 	      this.getCard(this.suit, value);
 	      this.stepsUntilFinished();
-	      this.resetVariables();
+        this.resetVariables();
 	    }
 
 	    else if (this.diamondClicked == true) {
 	      this.suit = 2;
 	      this.getCard(this.suit, value);
 	      this.stepsUntilFinished();
+        this.resetVariables();
 	    }
 
 	    else if (this.heartClicked == true) {
 	      this.suit = 3;
 	      this.getCard(this.suit, value);
 	      this.stepsUntilFinished();
+        this.resetVariables();
 	    }
 
 	    else if (this.clubClicked == true) {
 	      this.suit = 4;
 	      this.getCard(this.suit, value);
 	      this.stepsUntilFinished();
+        this.resetVariables();
 	    }
   	}
   }
@@ -254,73 +207,46 @@ export class PlannerComponent implements OnInit {
     this.clubClicked = false;
     this.heartClicked = false;
     this.diamondClicked = false;
-  }
-
-  reset() {
-    this.resetVariables();
+    this.value = 0;
+    this.suit = 0;
   }
 
   getCard(suit:number, value:number) {
     if (this.firstCardClicked == true) {
       // WHEN RESTARTING, RESETS TO THE DEFAULT URLSW
-   
-      // THIS IS WHERE THE PROBLEM LIES, THE VALUE IS NOT BEING PASSED
-      // SUIT AND VALUE IS UNDEFINED AND SETSUIT AND SETVALUE HAVE NO CLUE WHAT TO DO WITH IT
       this.firstCard.setSuit(suit);
       this.firstCard.setValue(value);
-
       this.firstCardSource = this.firstCard.whichCardSource(this.firstCard);
-      this.cardForm.patchValue({suit: this.firstCard.suit});
-      this.cardForm.patchValue({value: this.firstCard.value})
-      this.deckForm.patchValue({card1: this.firstCard.whichCard(this.firstCard)});
     }
     else if (this.secondCardClicked == true) {
       this.secondCard.setSuit(suit);
       this.secondCard.setValue(value);
       this.secondCardSource = this.secondCard.whichCardSource(this.secondCard);
-      this.cardForm.patchValue({suit: this.secondCard.suit});
-      this.cardForm.patchValue({value: this.secondCard.value});
-      this.deckForm.patchValue({card2: this.secondCard.whichCard(this.secondCard)});
     }
     else if (this.thirdCardClicked == true) {
       this.thirdCard.setSuit(suit);
       this.thirdCard.setValue(value);
       this.thirdCardSource = this.thirdCard.whichCardSource(this.thirdCard);
-      this.cardForm.patchValue({suit: this.thirdCard.suit});
-      this.cardForm.patchValue({value: this.thirdCard.value});
-      this.deckForm.patchValue({card3: this.thirdCard.whichCard(this.thirdCard)});
     }
     else if (this.fourthCardClicked == true) {
       this.fourthCard.setSuit(suit);
       this.fourthCard.setValue(value);
       this.fourthCardSource = this.fourthCard.whichCardSource(this.fourthCard);
-      this.cardForm.patchValue({suit: this.fourthCard.suit});
-      this.cardForm.patchValue({value: this.fourthCard.value});
-      this.deckForm.patchValue({card4: this.fourthCard.whichCard(this.fourthCard)})
     }
     else if (this.fifthCardClicked == true) {
       this.fifthCard.setSuit(suit);
       this.fifthCard.setValue(value);
       this.fifthCardSource = this.fifthCard.whichCardSource(this.fifthCard);
-      this.cardForm.patchValue({suit: this.fifthCard.suit});
-      this.cardForm.patchValue({value: this.fifthCard.value});
-      this.deckForm.patchValue({card5: this.fifthCard.whichCard(this.fifthCard)});
     }
     else if (this.firstHandCardClicked == true) {
       this.sixthCard.setSuit(suit);
       this.sixthCard.setValue(value);
       this.sixthCardSource = this.sixthCard.whichCardSource(this.sixthCard);
-      this.cardForm.patchValue({suit: this.sixthCard.suit});
-      this.cardForm.patchValue({value: this.sixthCard.value});
-      this.deckForm.patchValue({card6: this.sixthCard.whichCard(this.sixthCard)});
     }
     else if (this.secondHandCardClicked == true) {
       this.seventhCard.setSuit(suit);
       this.seventhCard.setValue(value);
       this.seventhCardSource = this.seventhCard.whichCardSource(this.seventhCard);
-      this.cardForm.patchValue({suit: this.seventhCard.suit});
-      this.cardForm.patchValue({value: this.seventhCard.value});
-      this.deckForm.patchValue({card7: this.seventhCard.whichCard(this.seventhCard)});
     }
   }
 
@@ -334,31 +260,31 @@ export class PlannerComponent implements OnInit {
 
   highlight(index:number) {
     if (index == 0) {
-      this.highlightCardOne = true;
+      
     }
 
     else if (index == 1) {
-      this.highlightCardTwo = true;
+      
     }
 
     else if (index == 2) {
-      this.highlightCardThree = true;
+      
     }
 
     else if (index == 3) {
-      this.highlightCardFour = true;
+      
     }
 
     else if (index == 4) {
-      this.highlightCardFive = true;
+      
     }
 
     else if (index == 5) {
-      this.highlightCardSix = true;
+      
     }
 
     else if (index == 6) {
-      this.highlightCardSeven = true;
+      
     }
   }
 
@@ -370,7 +296,6 @@ export class PlannerComponent implements OnInit {
         && this.deckOfCards[this.deckOfCards.highCard()[0]].value == 14) {
         this.handStatement = "ROYAL FLUSH"
         arrayOfIndex = this.deckOfCards.straight() as number[];
-
       }
 
       // STRAIGHT FLUSH
@@ -427,11 +352,16 @@ export class PlannerComponent implements OnInit {
         arrayOfIndex = this.deckOfCards.highCard() as number[];
       }
 
-      for (let i = 0; i < arrayOfIndex.length; i++) {
-        this.highlight(arrayOfIndex[i]);
-      }
+    for (let i = 0; i < arrayOfIndex.length; i++) {
+      this.highlight(arrayOfIndex[i]);
     }
+
+    // Create array of boolean values representing highlighted values
+
+    // Create the new updatedHandAndTable that will be passed to the form in save component
+
   }
+}
 
 
 
@@ -575,7 +505,7 @@ export class Card {
       }
     }
 
-    else {
+    else if (card.suit == 4) {
       switch(card.value) {
         case 2: nameOfCard = "Two of Clubs";
         break;
@@ -1457,4 +1387,43 @@ export class HandAndTable {
     return this.compareArrays(arrayOfCard);
   }
 
+}
+
+class updatedHandAndTable {
+  /*
+  Normal deck of cards (each has suit and value), but also with whether they are highlighted, and the url
+  */
+  deckOfCards:HandAndTable;
+  firstCardHighlighted:boolean;
+  secondCardHighlighted:boolean;
+  thirdCardHighlighted:boolean;
+  fourthCardHighlighted:boolean;
+  fifthCardHighlighted:boolean;
+  sixthCardHighlighted:boolean;
+  seventhCardHighlighted:boolean;
+  firstCardURL:string;
+  secondCardURL:string;
+  thirdCardURL:string;
+  fourthCardURL:string;
+  fifthCardURL:string;
+  sixthCardURL:string;
+  seventhCardURL:string;
+
+  constructor(deckOfCards:HandAndTable, firstHighlight:boolean, secondHighlight:boolean, thirdHighlight:boolean, fourthHighlight:boolean, fifthHighlight:boolean, sixthHighlight:boolean, seventhHighlight:boolean, firstURL:string, secondURL:string, thirdURL:string, fourthURL:string, fifthURL:string, sixthURL:string, seventhURL:string) {
+    this.deckOfCards = deckOfCards;
+    this.firstCardHighlighted = firstHighlight;
+    this.secondCardHighlighted = secondHighlight;
+    this.thirdCardHighlighted = thirdHighlight;
+    this.fourthCardHighlighted = fourthHighlight;
+    this.fifthCardHighlighted = fifthHighlight;
+    this.sixthCardHighlighted = sixthHighlight;
+    this.seventhCardHighlighted = seventhHighlight;
+    this.firstCardURL = firstURL;
+    this.secondCardURL = secondURL;
+    this.thirdCardURL = thirdURL;
+    this.fourthCardURL = fourthURL;
+    this.fifthCardURL = fifthURL;
+    this.sixthCardURL = sixthURL;
+    this.seventhCardURL = seventhURL;
+  }
 }

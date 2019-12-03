@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal'
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { PlannerComponent } from "../planner/planner.component";
 
 @Component({
   selector: 'app-restart',
