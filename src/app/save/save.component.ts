@@ -4,7 +4,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { PlannerDataService } from "../planner-data.service";
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { FirebaseCrudService } from '../firebase-crud.service';
-import { Card, HandAndTable } from '../planner/planner.component';
+import { Card, HandAndTable, UpdatedHandAndTable } from '../planner/planner.component';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 
 @Component({
@@ -25,12 +25,13 @@ export class SaveComponent implements OnInit {
 
   private deckOfCards:HandAndTable = new HandAndTable(this.cardOne, this.cardTwo, this.cardThree, this.cardFour, this.cardFive, this.cardSix, this.cardSeven);
 
+  private updatedDeckOfCards:UpdatedHandAndTable = new UpdatedHandAndTable(this.deckOfCards, false, false, false, false, false, false, false, "", "", "", "", "", "", "");
 
   constructor(private modalService: BsModalService, private data:PlannerDataService, private crud:FirebaseCrudService, private fb:FormBuilder, private db:AngularFireDatabase) {} 
 
 
   ngOnInit() {
-    this.data.currentHandAndTable.subscribe(deckOfCards => this.deckOfCards = deckOfCards);
+    this.data.currentHandAndTable.subscribe(deckOfCards => this.updatedDeckOfCards = deckOfCards);
   }
  
   /*
@@ -44,11 +45,11 @@ export class SaveComponent implements OnInit {
 
   buildForm() {
     this.cardForm = this.fb.group({
-      suit:[],
-      value:[],
-      index:[],
-      highlight:[],
-      url:[]
+      suit:[0],
+      value:[0],
+      index:[0],
+      highlight:[true],
+      url:[""]
     });
 
     this.card.subscribe(card => {
@@ -71,13 +72,13 @@ export class SaveComponent implements OnInit {
 
   buildFormTwo() {
     this.deckForm = this.fb.group({
-      card1:[''],
-      card2:[''],
-      card3:[''],
-      card4:[''],
-      card5:[''],
-      card6:[''],
-      card7:['']
+      card1:[this.buildForm],
+      card2:[this.buildForm],
+      card3:[this.buildForm],
+      card4:[this.buildForm],
+      card5:[this.buildForm],
+      card6:[this.buildForm],
+      card7:[this.buildForm]
     });
 
     this.deck.subscribe(deck => {
@@ -96,11 +97,10 @@ export class SaveComponent implements OnInit {
   }
 
   postData(): AngularFireList<HandAndTable>{
-    const defaultData = this.deckOfCards;
+    const defaultData = this.updatedDeckOfCards;
     const dataKey = this.db.list('/cardDecks').push(defaultData).key;
     return this.db.list('/cardDecks' + dataKey);
   }
-
 
 
   /*

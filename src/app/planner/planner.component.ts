@@ -12,16 +12,27 @@ import { PlannerDataService } from "../planner-data.service";
 })
 export class PlannerComponent implements OnInit {
 
+  firstCard:Card = new Card(0,0);
+  secondCard:Card = new Card(0,0);
+  thirdCard:Card = new Card(0,0);
+  fourthCard:Card = new Card(0,0);
+  fifthCard:Card = new Card(0,0);
+  sixthCard:Card = new Card(0,0);
+  seventhCard:Card = new Card(0,0);
+  deckOfCards = new HandAndTable(this.firstCard, this.secondCard, this.thirdCard, this.fourthCard, this.fifthCard, this.sixthCard, this.seventhCard);
+
+  updatedDeckOfCards:UpdatedHandAndTable = new UpdatedHandAndTable(this.deckOfCards, false, false, false, false, false, false, false, "", "", "", "", "", "", "");
+
   constructor(private storage: AngularFireStorage, private data:PlannerDataService) {
     
   }
 
   ngOnInit() {
-    this.data.currentHandAndTable.subscribe(deckOfCards => this.deckOfCards = deckOfCards);
+    this.data.currentHandAndTable.subscribe(deckOfCards => this.updatedDeckOfCards = deckOfCards);
   }
 
-  newDeckOfCards() {
-    this.data.changeHandAndTable(this.deckOfCards);
+  newDeckOfCards(newDeckOfCards:UpdatedHandAndTable) {
+    this.data.changeUpdatedHandAndTable(newDeckOfCards);
   }
 
   handStatement:string = '';
@@ -72,15 +83,6 @@ export class PlannerComponent implements OnInit {
   suitClicked:boolean = false;
 
   amountOfCardsClicked:number = 0;
-
-  firstCard:Card = new Card(0,0);
-  secondCard:Card = new Card(0,0);
-  thirdCard:Card = new Card(0,0);
-  fourthCard:Card = new Card(0,0);
-  fifthCard:Card = new Card(0,0);
-  sixthCard:Card = new Card(0,0);
-  seventhCard:Card = new Card(0,0);
-  deckOfCards = new HandAndTable(this.firstCard, this.secondCard, this.thirdCard, this.fourthCard, this.fifthCard, this.sixthCard, this.seventhCard);
 
   /*
    *
@@ -358,7 +360,37 @@ export class PlannerComponent implements OnInit {
 
     // Create array of boolean values representing highlighted values
 
+    let arrayOfHighlights:boolean[] = [false, false, false, false, false, false, false];
+
+    for (let i = 0; i < arrayOfIndex.length; i++) {
+      if (arrayOfIndex[i] == 0) {
+        arrayOfHighlights[0] = true;
+      }
+      else if (arrayOfIndex[i] == 1) {
+        arrayOfHighlights[1] = true;
+      }
+      else if (arrayOfIndex[i] == 2) {
+        arrayOfHighlights[2] = true;
+      }
+      else if (arrayOfIndex[i] == 3) {
+        arrayOfHighlights[3] = true;
+      }
+      else if (arrayOfIndex[i] == 4) {
+        arrayOfHighlights[4] = true;
+      }
+      else if (arrayOfIndex[i] == 5) {
+        arrayOfHighlights[5] = true;
+      }
+      else if (arrayOfIndex[i] == 6) {
+        arrayOfHighlights[6] = true;
+      }
+    }
+
     // Create the new updatedHandAndTable that will be passed to the form in save component
+
+    let updatedDeckOfCards:UpdatedHandAndTable = new UpdatedHandAndTable(this.deckOfCards, arrayOfHighlights[0], arrayOfHighlights[1], arrayOfHighlights[2], arrayOfHighlights[3], arrayOfHighlights[4], arrayOfHighlights[5], arrayOfHighlights[6], this.firstCardSource, this.secondCardSource, this.thirdCardSource, this.fourthCardSource, this.fifthCardSource, this.sixthCardSource, this.seventhCardSource);
+
+    this.data.changeUpdatedHandAndTable(updatedDeckOfCards);
 
   }
 }
@@ -1389,7 +1421,7 @@ export class HandAndTable {
 
 }
 
-class updatedHandAndTable {
+export class UpdatedHandAndTable {
   /*
   Normal deck of cards (each has suit and value), but also with whether they are highlighted, and the url
   */

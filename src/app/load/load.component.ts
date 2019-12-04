@@ -10,16 +10,21 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal'
 
 export class LoadComponent implements OnInit {
 
-  nameOfSave = 'name of save';
-  modalRef: BsModalRef;
-
   constructor(private modalService: BsModalService) {} 
   
-  openModal(template: any) {
-    this.modalRef = this.modalService.show(template);
+  ngOnInit() {
   }
 
-  ngOnInit() {
+  /*
+   *
+   *  Modal Code
+   *
+   */
+   
+  modalRef: BsModalRef;
+
+  openModal(template: any) {
+    this.modalRef = this.modalService.show(template);
   }
 
   confirm(): void {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Card, HandAndTable } from './planner/planner.component';
+import { Card, HandAndTable, UpdatedHandAndTable } from './planner/planner.component';
 
 @Injectable({
   providedIn: 'root'
@@ -15,15 +15,16 @@ export class PlannerDataService {
   cardSix:Card = new Card(0,0);
   cardSeven:Card = new Card(0,0);
 
-
   private deckOfCards = new HandAndTable(this.cardOne, this.cardTwo, this.cardThree, this.cardFour, this.cardFive, this.cardSix, this.cardSeven);
 
-  private cardSource = new BehaviorSubject<HandAndTable>(this.deckOfCards);
+  private updatedDeckOfCards = new UpdatedHandAndTable(this.deckOfCards, false, false, false, false, false, false, false, "", "", "", "", "", "", "");
+
+  private cardSource = new BehaviorSubject<UpdatedHandAndTable>(this.updatedDeckOfCards);
   currentHandAndTable = this.cardSource.asObservable();
 
   constructor() { }
 
-  changeHandAndTable(deckOfCards:HandAndTable) {
-  	this.cardSource.next(deckOfCards);
+  changeUpdatedHandAndTable(updatedDeckOfCards:UpdatedHandAndTable) {
+  	this.cardSource.next(updatedDeckOfCards);
   }
 }
