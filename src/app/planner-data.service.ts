@@ -9,17 +9,6 @@ export class PlannerDataService {
 
   constructor() { }
 
-  // Checking for Completed Deck Information
-
-  private numberOfCardsCompleted:number = 0;
-
-  private numberOfCardsCompletedSource = new BehaviorSubject<number>(this.numberOfCardsCompleted);
-  currentNumberOfCardsCompleted = this.numberOfCardsCompletedSource.asObservable();
-
-  changeCurrentNumberOfCardsCompleted(value:number) {
-    this.numberOfCardsCompletedSource.next(value);
-  }
-
   // Save Information
 
   private nameOfSave:any = "";

@@ -30,7 +30,7 @@ export class PlannerComponent implements OnInit {
 
   currentlyRestarted:boolean = false;
 
-  currentNumberOfCardsCompleted:number = 7;
+  currentNumberOfCardsCompleted:number = 0;
 
   constructor(private storage: AngularFireStorage, private data:PlannerDataService, private modalService: BsModalService) {
     
@@ -41,7 +41,6 @@ export class PlannerComponent implements OnInit {
     this.data.currentHandAndTable.subscribe(deckOfCards => this.updatedDeckOfCards = deckOfCards);
     this.data.currentlyLoaded.subscribe(currentlyLoaded => this.currentlyLoaded = currentlyLoaded);
     this.data.currentlyRestarted.subscribe(currentlyRestarted => this.currentlyRestarted = currentlyRestarted);
-    this.data.currentNumberOfCardsCompleted.subscribe(currentNumberOfCardsCompleted => this.currentNumberOfCardsCompleted = currentNumberOfCardsCompleted);
 
     if (this.currentlyLoaded == true) {
       this.loadedCards(this.updatedDeckOfCards);
@@ -49,10 +48,6 @@ export class PlannerComponent implements OnInit {
 
     if (this.currentlyRestarted == true) {
       this.cardsRestarted();
-    }
-
-    if (this.currentNumberOfCardsCompleted == 7) {
-      this.handDeclaration();
     }
   }
 
@@ -249,7 +244,6 @@ export class PlannerComponent implements OnInit {
   checkIfCardsCompleted(card:Card) {
     if (card.suit != 0 && card.value != 0) {
       this.currentNumberOfCardsCompleted++;
-      this.data.changeCurrentNumberOfCardsCompleted(this.currentNumberOfCardsCompleted);
     }
   }
 
@@ -374,6 +368,15 @@ export class PlannerComponent implements OnInit {
 
     else if (index == 6) {
       this.highlightCardSeven = true;
+    }
+  }
+
+  submit() {
+    if (this.currentNumberOfCardsCompleted >= 7) {
+      this.handDeclaration();
+    }
+    else {
+
     }
   }
 

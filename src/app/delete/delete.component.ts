@@ -30,8 +30,8 @@ export class DeleteComponent implements OnInit {
    * 
    */
 
-   delete(input:string) {
-     this.db.list('/cardDecks').remove(input);
+   delete() {
+     this.db.list("/cardDecks").remove();
    }
 
   /*
