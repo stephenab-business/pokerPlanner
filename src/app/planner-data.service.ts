@@ -7,6 +7,8 @@ import { Card, HandAndTable, UpdatedHandAndTable } from './planner/planner.compo
 })
 export class PlannerDataService {
 
+  // Card Data Information
+
   cardOne:Card = new Card(0,0);
   cardTwo:Card = new Card(0,0);
   cardThree:Card = new Card(0,0);
@@ -22,9 +24,24 @@ export class PlannerDataService {
   private cardSource = new BehaviorSubject<UpdatedHandAndTable>(this.updatedDeckOfCards);
   currentHandAndTable = this.cardSource.asObservable();
 
+  // Load Data Information
+
+  private loaded = false;
+
+  private loadedSource = new BehaviorSubject<boolean>(this.loaded);
+  currentlyLoaded = this.loadedSource.asObservable();
+
   constructor() { }
+
+  // Card Method
 
   changeUpdatedHandAndTable(updatedDeckOfCards:UpdatedHandAndTable) {
   	this.cardSource.next(updatedDeckOfCards);
+  }
+
+  // Load Method
+
+  changeCurrentlyLoaded(value:boolean) {
+    this.loadedSource.next(value);
   }
 }

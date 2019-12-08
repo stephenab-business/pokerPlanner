@@ -23,12 +23,19 @@ export class PlannerComponent implements OnInit {
 
   updatedDeckOfCards:UpdatedHandAndTable = new UpdatedHandAndTable(this.deckOfCards, false, false, false, false, false, false, false, "", "", "", "", "", "", "");
 
+  currentlyLoaded:boolean = false;
+
   constructor(private storage: AngularFireStorage, private data:PlannerDataService) {
     
   }
 
   ngOnInit() {
     this.data.currentHandAndTable.subscribe(deckOfCards => this.updatedDeckOfCards = deckOfCards);
+    this.data.currentlyLoaded.subscribe(currentlyLoaded => this.currentlyLoaded = currentlyLoaded);
+
+    if (this.currentlyLoaded == true) {
+      this.loadedCards(this.updatedDeckOfCards);
+    }
   }
 
   newDeckOfCards(newDeckOfCards:UpdatedHandAndTable) {
@@ -262,31 +269,31 @@ export class PlannerComponent implements OnInit {
 
   highlight(index:number) {
     if (index == 0) {
-      
+      this.highlightCardOne = true;
     }
 
     else if (index == 1) {
-      
+      this.highlightCardTwo = true;
     }
 
     else if (index == 2) {
-      
+      this.highlightCardThree = true;
     }
 
     else if (index == 3) {
-      
+      this.highlightCardFour = true;
     }
 
     else if (index == 4) {
-      
+      this.highlightCardFive = true;
     }
 
     else if (index == 5) {
-      
+      this.highlightCardSix = true;
     }
 
     else if (index == 6) {
-      
+      this.highlightCardSeven = true;
     }
   }
 
@@ -393,6 +400,51 @@ export class PlannerComponent implements OnInit {
     this.data.changeUpdatedHandAndTable(updatedDeckOfCards);
 
   }
+
+
+  loadedCards(updatedDeck:UpdatedHandAndTable) {
+    this.firstCard = updatedDeck.deckOfCards.firstTableCard;
+    this.secondCard = updatedDeck.deckOfCards.secondTableCard;
+    this.thirdCard = updatedDeck.deckOfCards.thirdTableCard;
+    this.fourthCard = updatedDeck.deckOfCards.fourthTableCard;
+    this.fifthCard = updatedDeck.deckOfCards.fifthTableCard;
+    this.sixthCard = updatedDeck.deckOfCards.firstHandCard;
+    this.seventhCard = updatedDeck.deckOfCards.secondHandCard;
+    this.firstCardSource = updatedDeck.firstCardURL;
+    this.secondCardSource = updatedDeck.secondCardURL;
+    this.thirdCardSource = updatedDeck.thirdCardURL;
+    this.fourthCardSource = updatedDeck.fourthCardURL;
+    this.fifthCardSource = updatedDeck.fifthCardURL;
+    this.sixthCardSource = updatedDeck.sixthCardURL;
+    this.seventhCardSource = updatedDeck.seventhCardURL;
+
+    if (updatedDeck.firstCardHighlighted == true) {
+      this.highlight(0);
+    }
+    if (updatedDeck.secondCardHighlighted == true) {
+      this.highlight(1);
+    }
+    if (updatedDeck.thirdCardHighlighted == true) {
+      this.highlight(2);
+    }
+    if (updatedDeck.fourthCardHighlighted == true) {
+      this.highlight(3);
+    }
+    if (updatedDeck.fifthCardHighlighted == true) {
+      this.highlight(4);
+    }
+    if (updatedDeck.sixthCardHighlighted == true) {
+      this.highlight(5);
+    }
+    if (updatedDeck.seventhCardHighlighted == true) {
+      this.highlight(6);
+    }
+  }
+
+
+
+
+
 }
 
 

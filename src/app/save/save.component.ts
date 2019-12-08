@@ -40,66 +40,12 @@ export class SaveComponent implements OnInit {
    *
    */
 
-  card:any;
-  cardForm:FormGroup;
+  inputField:string = "";
 
-  buildForm() {
-    this.cardForm = this.fb.group({
-      suit:[0],
-      value:[0],
-      index:[0],
-      highlight:[true],
-      url:[""]
-    });
-
-    this.card.subscribe(card => {
-      this.cardForm.patchValue(card);
-    })
-  }
-
-  startNewCard() {
-    this.card = this.crud.createCard();
-    this.buildForm();
-  }
-
-  saveCardChanges() {
-    const data = this.cardForm.value;
-    this.crud.updateCard(this.card, data);
-  }
-
-  deck:any;
-  deckForm:FormGroup;
-
-  buildFormTwo() {
-    this.deckForm = this.fb.group({
-      card1:[this.buildForm],
-      card2:[this.buildForm],
-      card3:[this.buildForm],
-      card4:[this.buildForm],
-      card5:[this.buildForm],
-      card6:[this.buildForm],
-      card7:[this.buildForm]
-    });
-
-    this.deck.subscribe(deck => {
-      this.deckForm.patchValue(deck);
-    })
-  }
-
-  startNewDeck() {
-    this.deck = this.crud.createDeck();
-    this.buildFormTwo();
-  }
-
-  saveDeckChanges() {
-    const data = this.deckForm.value;
-    this.crud.updateCard(this.deck, data);
-  }
-
-  postData(): AngularFireList<HandAndTable>{
+  postData(): AngularFireList<HandAndTable> {
     const defaultData = this.updatedDeckOfCards;
-    const dataKey = this.db.list('/cardDecks').push(defaultData).key;
-    return this.db.list('/cardDecks' + dataKey);
+    this.db.list('/cardDecks').push(defaultData).key = this.inputField;
+    return this.db.list('/cardDecks' + this.inputField);
   }
 
 
