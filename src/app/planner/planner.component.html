@@ -43,22 +43,22 @@
         <div class="col-lg-8">
           <ul class="list-unstyled suits">
             <li class="d-inline">
-              <button (click)="clickSuitSpade()" class="btn btn-light" type="button">
+              <button [disabled]="suitDisabled" (click)="clickSuitSpade()" class="btn btn-light" type="button">
                 <img src="assets/images/Suits/Spades.png">
               </button>
             </li>
             <li class="d-inline">
-              <button (click)="clickSuitDiamond()" class="btn btn-light" type="button">
+              <button [disabled]="suitDisabled" (click)="clickSuitDiamond()" class="btn btn-light" type="button">
                 <img src="assets/images/Suits/Diamonds.png">
               </button>
             </li>
             <li class="d-inline">
-              <button (click)="clickSuitHeart()" class="btn btn-light" type="button">
+              <button [disabled]="suitDisabled" (click)="clickSuitHeart()" class="btn btn-light" type="button">
                 <img src="assets/images/Suits/Hearts.png">
               </button>
             </li>
             <li class="d-inline">
-              <button (click)="clickSuitClub()" class="btn btn-light" type="button">
+              <button [disabled]="suitDisabled" (click)="clickSuitClub()" class="btn btn-light" type="button">
                 <img src="assets/images/Suits/Clubs.png">
               </button>
             </li>
@@ -69,49 +69,49 @@
         <div class="col-lg-8">
           <ul class="list-unstyled values">
             <li class="d-inline">
-              <button (click)="clickValue(14, duplicates)" class="btn btn-light" type="button">A</button>
+              <button [disabled]="valueDisabled" (click)="clickValue(14, duplicates)" class="btn btn-light" type="button">A</button>
             </li>
             <li class="d-inline">
-              <button (click)="clickValue(2, duplicates)" class="btn btn-light" type="button">2</button>
+              <button [disabled]="valueDisabled" (click)="clickValue(2, duplicates)" class="btn btn-light" type="button">2</button>
             </li>
             <li class="d-inline">
-              <button (click)="clickValue(3, duplicates)" class="btn btn-light" type="button">3</button>
+              <button [disabled]="valueDisabled" (click)="clickValue(3, duplicates)" class="btn btn-light" type="button">3</button>
             </li>
             <li class="d-inline">
-              <button (click)="clickValue(4, duplicates)" class="btn btn-light" type="button">4</button>
+              <button [disabled]="valueDisabled" (click)="clickValue(4, duplicates)" class="btn btn-light" type="button">4</button>
             </li>
             <li class="d-inline">
-              <button (click)="clickValue(5, duplicates)" class="btn btn-light" type="button">5</button>
+              <button [disabled]="valueDisabled" (click)="clickValue(5, duplicates)" class="btn btn-light" type="button">5</button>
             </li>
             <li class="d-inline">
-              <button (click)="clickValue(6, duplicates)" class="btn btn-light" type="button">6</button>
+              <button [disabled]="valueDisabled" (click)="clickValue(6, duplicates)" class="btn btn-light" type="button">6</button>
             </li>
             <li class="d-inline">
-              <button (click)="clickValue(7, duplicates)" class="btn btn-light" type="button">7</button>
+              <button [disabled]="valueDisabled" (click)="clickValue(7, duplicates)" class="btn btn-light" type="button">7</button>
             </li>
             <li class="d-inline">
-              <button (click)="clickValue(8, duplicates)" class="btn btn-light" type="button">8</button>
+              <button [disabled]="valueDisabled" (click)="clickValue(8, duplicates)" class="btn btn-light" type="button">8</button>
             </li>
             <li class="d-inline">
-              <button (click)="clickValue(9, duplicates)" class="btn btn-light" type="button">9</button>
+              <button [disabled]="valueDisabled" (click)="clickValue(9, duplicates)" class="btn btn-light" type="button">9</button>
             </li>
             <li class="d-inline">
-              <button (click)="clickValue(10, duplicates)" class="btn btn-light" type="button">10</button>
+              <button [disabled]="valueDisabled" (click)="clickValue(10, duplicates)" class="btn btn-light" type="button">10</button>
             </li>
             <li class="d-inline">
-              <button (click)="clickValue(11, duplicates)" class="btn btn-light" type="button">J</button>
+              <button [disabled]="valueDisabled" (click)="clickValue(11, duplicates)" class="btn btn-light" type="button">J</button>
             </li>
             <li class="d-inline">
-              <button (click)="clickValue(12, duplicates)" class="btn btn-light" type="button">Q</button>
+              <button [disabled]="valueDisabled" (click)="clickValue(12, duplicates)" class="btn btn-light" type="button">Q</button>
             </li>
             <li class="d-inline">
-              <button (click)="clickValue(13, duplicates)" class="btn btn-light" type="button">K</button>
+              <button [disabled]="valueDisabled" (click)="clickValue(13, duplicates)" class="btn btn-light" type="button">K</button>
             </li>
           </ul>
         </div>
       </div>
 
-      <button [disabled]="numberOf" type="button" (click)="submit()">Find out what you have!</button>
+      <button [disabled]="checkCardsCompleted()" type="button" (click)="submit()">Find out what you have!</button>
 
   </div>
   <div class="row justify-content-center text-center">

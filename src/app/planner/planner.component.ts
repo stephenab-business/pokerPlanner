@@ -32,6 +32,8 @@ export class PlannerComponent implements OnInit {
 
   currentNumberOfCardsCompleted:number = 0;
 
+  submitDisabled:boolean = true;
+
   constructor(private storage: AngularFireStorage, private data:PlannerDataService, private modalService: BsModalService) {
     
   }
@@ -128,6 +130,9 @@ export class PlannerComponent implements OnInit {
   cardClicked:boolean = false;
   suitClicked:boolean = false;
 
+  suitDisabled:boolean = true;
+  valueDisabled:boolean = true;
+
   /*
    *
    *
@@ -139,56 +144,67 @@ export class PlannerComponent implements OnInit {
   clickFirstCard() {
   	this.cardClicked = true;
     this.firstCardClicked = true;
+    this.suitDisabled = false;
   }
 
   clickSecondCard() {
   	this.cardClicked = true;
     this.secondCardClicked = true;
+    this.suitDisabled = false;
   }
 
   clickThirdCard() {
   	this.cardClicked = true;
     this.thirdCardClicked = true;
+    this.suitDisabled = false;
   }
 
   clickFourthCard() {
   	this.cardClicked = true;
     this.fourthCardClicked = true;
+    this.suitDisabled = false;
   }
 
   clickFifthCard() {
   	this.cardClicked = true;
     this.fifthCardClicked = true;
+    this.suitDisabled = false;
   }
 
   clickFirstHandCard() {
   	this.cardClicked = true;
     this.firstHandCardClicked = true;
+    this.suitDisabled = false;
   }
 
   clickSecondHandCard() {
   	this.cardClicked = true;
     this.secondHandCardClicked = true;
+    this.suitDisabled = false;
   }
 
   clickSuitSpade() {
   	this.suitClicked = true;
     this.spadeClicked = true;
+    this.valueDisabled = false;
   }
 
   clickSuitClub() {
   	this.suitClicked = true;
     this.clubClicked = true;
+    this.valueDisabled = false;
   }
 
   clickSuitHeart() {
   	this.suitClicked = true;
     this.heartClicked = true;
+    this.valueDisabled = false;
   }
 
   clickSuitDiamond() {
   	this.suitClicked = true;
     this.diamondClicked = true;
+    this.valueDisabled = false;
   }
 
   clickValue(value:number, template:any) {
@@ -279,6 +295,8 @@ export class PlannerComponent implements OnInit {
     this.diamondClicked = false;
     this.value = 0;
     this.suit = 0;
+    this.suitDisabled = true;
+    this.valueDisabled = true;
   }
 
   getCard(suit:number, value:number, template:any) {
@@ -371,12 +389,18 @@ export class PlannerComponent implements OnInit {
     }
   }
 
-  submit() {
-    if (this.currentNumberOfCardsCompleted >= 7) {
-      this.handDeclaration();
+  checkCardsCompleted() {
+    if (this.currentNumberOfCardsCompleted < 6) {
+      return true;
     }
     else {
+      return false;
+    }
+  }
 
+  submit() {
+    if (this.currentNumberOfCardsCompleted >= 6) {
+      this.handDeclaration();
     }
   }
 
