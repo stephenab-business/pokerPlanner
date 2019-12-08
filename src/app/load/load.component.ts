@@ -6,6 +6,7 @@ import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { FirebaseCrudService } from '../firebase-crud.service';
 import { Card, HandAndTable, UpdatedHandAndTable } from '../planner/planner.component';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-load',
@@ -15,6 +16,8 @@ import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 
 export class LoadComponent implements OnInit {
 
+  cardDecks:Observable<any>;
+
   cardOne:Card = new Card(0,0);
   cardTwo:Card = new Card(0,0);
   cardThree:Card = new Card(0,0);
@@ -23,17 +26,21 @@ export class LoadComponent implements OnInit {
   cardSix:Card = new Card(0,0);
   cardSeven:Card = new Card(0,0);
 
+  nameOfSave:string = "";
+
   private deckOfCards:HandAndTable = new HandAndTable(this.cardOne, this.cardTwo, this.cardThree, this.cardFour, this.cardFive, this.cardSix, this.cardSeven);
 
-  private updatedDeckOfCards:UpdatedHandAndTable = new UpdatedHandAndTable(this.deckOfCards, false, false, false, false, false, false, false, "", "", "", "", "", "", "");
+  private updatedDeckOfCards:UpdatedHandAndTable = new UpdatedHandAndTable(this.nameOfSave, this.deckOfCards, false, false, false, false, false, false, false, "", "", "", "", "", "", "");
 
   private currentlyLoaded:boolean = false;
 
   constructor(private modalService: BsModalService, private data:PlannerDataService, private crud:FirebaseCrudService, private fb:FormBuilder, private db:AngularFireDatabase) {} 
   
   ngOnInit() {
-    this.data.currentHandAndTable.subscribe(deckOfCards => this.updatedDeckOfCards = deckOfCards);;
-    this.data.currentlyLoaded.subscribe(currentlyLoaded => this.currentlyLoaded = currentlyLoaded)
+    this.data.currentHandAndTable.subscribe(deckOfCards => this.updatedDeckOfCards = deckOfCards);
+    this.data.currentlyLoaded.subscribe(currentlyLoaded => this.currentlyLoaded = currentlyLoaded);
+    this.cardDecks = this.db.list("/cardDecks").snapshotChanges();
+    this.data.currentlySaved.subscribe(nameOfSave => this.nameOfSave = nameOfSave);
   }
 
   /*
@@ -50,6 +57,7 @@ export class LoadComponent implements OnInit {
          deck = c.payload.val();
          this.data.changeUpdatedHandAndTable(deck);
          this.data.changeCurrentlyLoaded(true);
+         this.modalRef.hide();
        })
      });
    }

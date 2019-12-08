@@ -10,9 +10,9 @@
   <div class="modal-body">
     <p>Select which save you want to load:</p>
     <div class="container">
-      <ul>
-        <li (click)="retrieveData()">Click</li>
-      </ul>
+      <div class="list-group" *ngFor="let cardDecks of (cardDecks | async)">
+        <p (click)="retrieveData()">{{cardDecks.key}}</p>
+      </div>
     </div>
   </div>
 </ng-template>

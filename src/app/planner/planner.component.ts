@@ -4,6 +4,7 @@ import { FirebaseCrudService } from '../firebase-crud.service';
 import { Observable } from 'rxjs';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { PlannerDataService } from "../planner-data.service";
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-planner',
@@ -21,22 +22,65 @@ export class PlannerComponent implements OnInit {
   seventhCard:Card = new Card(0,0);
   deckOfCards = new HandAndTable(this.firstCard, this.secondCard, this.thirdCard, this.fourthCard, this.fifthCard, this.sixthCard, this.seventhCard);
 
-  updatedDeckOfCards:UpdatedHandAndTable = new UpdatedHandAndTable(this.deckOfCards, false, false, false, false, false, false, false, "", "", "", "", "", "", "");
+  nameOfSave:any = "";
+
+  updatedDeckOfCards:UpdatedHandAndTable = new UpdatedHandAndTable(this.nameOfSave, this.deckOfCards, false, false, false, false, false, false, false, "", "", "", "", "", "", "");
 
   currentlyLoaded:boolean = false;
 
-  constructor(private storage: AngularFireStorage, private data:PlannerDataService) {
+  currentlyRestarted:boolean = false;
+
+  currentNumberOfCardsCompleted:number = 7;
+
+  constructor(private storage: AngularFireStorage, private data:PlannerDataService, private modalService: BsModalService) {
     
   }
 
   ngOnInit() {
+    this.data.currentlySaved.subscribe(nameOfSave => this.nameOfSave = nameOfSave);
     this.data.currentHandAndTable.subscribe(deckOfCards => this.updatedDeckOfCards = deckOfCards);
     this.data.currentlyLoaded.subscribe(currentlyLoaded => this.currentlyLoaded = currentlyLoaded);
+    this.data.currentlyRestarted.subscribe(currentlyRestarted => this.currentlyRestarted = currentlyRestarted);
+    this.data.currentNumberOfCardsCompleted.subscribe(currentNumberOfCardsCompleted => this.currentNumberOfCardsCompleted = currentNumberOfCardsCompleted);
 
     if (this.currentlyLoaded == true) {
       this.loadedCards(this.updatedDeckOfCards);
     }
+
+    if (this.currentlyRestarted == true) {
+      this.cardsRestarted();
+    }
+
+    if (this.currentNumberOfCardsCompleted == 7) {
+      this.handDeclaration();
+    }
   }
+
+  /*
+   *
+   * Modal Information
+   *
+   */
+
+  modalRef: BsModalRef;
+
+  openModal(template: any) {
+    this.modalRef = this.modalService.show(template);
+  }
+
+  confirm(): void {
+    this.modalRef.hide();
+  }
+
+  decline(): void {
+    this.modalRef.hide();
+  }
+
+  /*
+   *
+   * Card Information
+   *
+   */
 
   newDeckOfCards(newDeckOfCards:UpdatedHandAndTable) {
     this.data.changeUpdatedHandAndTable(newDeckOfCards);
@@ -89,8 +133,6 @@ export class PlannerComponent implements OnInit {
   cardClicked:boolean = false;
   suitClicked:boolean = false;
 
-  amountOfCardsClicked:number = 0;
-
   /*
    *
    *
@@ -137,7 +179,6 @@ export class PlannerComponent implements OnInit {
   clickSuitSpade() {
   	this.suitClicked = true;
     this.spadeClicked = true;
-
   }
 
   clickSuitClub() {
@@ -155,39 +196,69 @@ export class PlannerComponent implements OnInit {
     this.diamondClicked = true;
   }
 
-  clickValue(value:number) {
-  	if (this.amountOfCardsClicked == 7) {
-  		this.handDeclaration();
-  	}
-  	else {
+  clickValue(value:number, template:any) {
 	    if (this.spadeClicked == true) {
-	      this.suit = 1;
-	      this.getCard(this.suit, value);
-	      this.stepsUntilFinished();
-        this.resetVariables();
+        this.suit = 1;
+        if (this.checkForDuplicates(this.suit, value) == true) {
+          this.getCard(this.suit, value, template);
+        }
+        else {
+          let card = this.getCard(this.suit, value, template);
+          this.checkIfCardsCompleted(card);
+          this.resetVariables();
+        }
 	    }
 
 	    else if (this.diamondClicked == true) {
-	      this.suit = 2;
-	      this.getCard(this.suit, value);
-	      this.stepsUntilFinished();
-        this.resetVariables();
+        this.suit = 2;
+        if (this.checkForDuplicates(this.suit, value) == true) {
+          this.getCard(this.suit, value, template);
+        }
+        else {
+          let card = this.getCard(this.suit, value, template);
+          this.checkIfCardsCompleted(card);
+          this.resetVariables();
+        }
 	    }
 
 	    else if (this.heartClicked == true) {
-	      this.suit = 3;
-	      this.getCard(this.suit, value);
-	      this.stepsUntilFinished();
-        this.resetVariables();
+        this.suit = 3;
+        if (this.checkForDuplicates(this.suit, value) == true) {
+          this.getCard(this.suit, value, template);
+        }
+        else {
+          let card = this.getCard(this.suit, value, template);
+          this.checkIfCardsCompleted(card);
+          this.resetVariables();
+        }
 	    }
 
 	    else if (this.clubClicked == true) {
-	      this.suit = 4;
-	      this.getCard(this.suit, value);
-	      this.stepsUntilFinished();
-        this.resetVariables();
+        this.suit = 4;
+        if (this.checkForDuplicates(this.suit, value) == true) {
+          this.getCard(this.suit, value, template);
+        }
+        else {
+          let card = this.getCard(this.suit, value, template);
+          this.checkIfCardsCompleted(card);
+          this.resetVariables();
+        }
 	    }
-  	}
+  }
+
+  checkIfCardsCompleted(card:Card) {
+    if (card.suit != 0 && card.value != 0) {
+      this.currentNumberOfCardsCompleted++;
+      this.data.changeCurrentNumberOfCardsCompleted(this.currentNumberOfCardsCompleted);
+    }
+  }
+
+  checkForDuplicates(suit:number, value:number) {
+    for (let i = 0; i < 7; i++) {
+      if (this.deckOfCards.handAndTable[i].suit == suit && this.deckOfCards.handAndTable[i].value == value) {
+        return true;
+      }
+    }
   }
 
   /*
@@ -197,10 +268,6 @@ export class PlannerComponent implements OnInit {
    *
    *
    */
-
-  stepsUntilFinished() {
-    this.amountOfCardsClicked++;
-  }
 
   resetVariables() {
     this.firstCardClicked = false;
@@ -220,42 +287,55 @@ export class PlannerComponent implements OnInit {
     this.suit = 0;
   }
 
-  getCard(suit:number, value:number) {
-    if (this.firstCardClicked == true) {
+  getCard(suit:number, value:number, template:any) {
+    if (this.checkForDuplicates(suit, value) == true) {
+      this.openModal(template);
+      this.resetVariables();
+    }
+    else {
+      if (this.firstCardClicked == true) {
       // WHEN RESTARTING, RESETS TO THE DEFAULT URLSW
       this.firstCard.setSuit(suit);
       this.firstCard.setValue(value);
       this.firstCardSource = this.firstCard.whichCardSource(this.firstCard);
+      return this.firstCard;
     }
     else if (this.secondCardClicked == true) {
       this.secondCard.setSuit(suit);
       this.secondCard.setValue(value);
       this.secondCardSource = this.secondCard.whichCardSource(this.secondCard);
+      return this.secondCard;
     }
     else if (this.thirdCardClicked == true) {
       this.thirdCard.setSuit(suit);
       this.thirdCard.setValue(value);
       this.thirdCardSource = this.thirdCard.whichCardSource(this.thirdCard);
+      return this.thirdCard;
     }
     else if (this.fourthCardClicked == true) {
       this.fourthCard.setSuit(suit);
       this.fourthCard.setValue(value);
       this.fourthCardSource = this.fourthCard.whichCardSource(this.fourthCard);
+      return this.fourthCard;
     }
     else if (this.fifthCardClicked == true) {
       this.fifthCard.setSuit(suit);
       this.fifthCard.setValue(value);
       this.fifthCardSource = this.fifthCard.whichCardSource(this.fifthCard);
+      return this.sixthCard;
     }
     else if (this.firstHandCardClicked == true) {
       this.sixthCard.setSuit(suit);
       this.sixthCard.setValue(value);
       this.sixthCardSource = this.sixthCard.whichCardSource(this.sixthCard);
+      return this.sixthCard;
     }
     else if (this.secondHandCardClicked == true) {
       this.seventhCard.setSuit(suit);
       this.seventhCard.setValue(value);
       this.seventhCardSource = this.seventhCard.whichCardSource(this.seventhCard);
+      return this.seventhCard;
+    }
     }
   }
 
@@ -395,7 +475,7 @@ export class PlannerComponent implements OnInit {
 
     // Create the new updatedHandAndTable that will be passed to the form in save component
 
-    let updatedDeckOfCards:UpdatedHandAndTable = new UpdatedHandAndTable(this.deckOfCards, arrayOfHighlights[0], arrayOfHighlights[1], arrayOfHighlights[2], arrayOfHighlights[3], arrayOfHighlights[4], arrayOfHighlights[5], arrayOfHighlights[6], this.firstCardSource, this.secondCardSource, this.thirdCardSource, this.fourthCardSource, this.fifthCardSource, this.sixthCardSource, this.seventhCardSource);
+    let updatedDeckOfCards:UpdatedHandAndTable = new UpdatedHandAndTable(this.nameOfSave, this.deckOfCards, arrayOfHighlights[0], arrayOfHighlights[1], arrayOfHighlights[2], arrayOfHighlights[3], arrayOfHighlights[4], arrayOfHighlights[5], arrayOfHighlights[6], this.firstCardSource, this.secondCardSource, this.thirdCardSource, this.fourthCardSource, this.fifthCardSource, this.sixthCardSource, this.seventhCardSource);
 
     this.data.changeUpdatedHandAndTable(updatedDeckOfCards);
 
@@ -439,11 +519,51 @@ export class PlannerComponent implements OnInit {
     if (updatedDeck.seventhCardHighlighted == true) {
       this.highlight(6);
     }
+
+    this.currentlyLoaded = false;
   }
 
-
-
-
+  cardsRestarted() {
+    this.firstCard = new Card(0, 0);
+    this.secondCard = new Card(0, 0);
+    this.thirdCard = new Card(0, 0);
+    this.fourthCard = new Card(0, 0);
+    this.fifthCard = new Card(0, 0);
+    this.sixthCard = new Card(0, 0);
+    this.seventhCard = new Card(0, 0);
+    this.deckOfCards = new HandAndTable(this.firstCard, this.secondCard, this.thirdCard, this.fourthCard, this.fifthCard, this.sixthCard, this.seventhCard);
+    this.firstCardClicked = false;
+    this.secondCardClicked = false;
+    this.thirdCardClicked = false;
+    this.fourthCardClicked = false;
+    this.fifthCardClicked = false;
+    this.firstHandCardClicked = false;
+    this.secondHandCardClicked = false;
+    this.firstCardSource = "assets/images/Back Covers/Pomegranate.png"
+    this.secondCardSource = this.imageSource;
+    this.thirdCardSource = this.imageSource;
+    this.fourthCardSource = this.imageSource;
+    this.fifthCardSource = this.imageSource;
+    this.sixthCardSource = this.imageSource;
+    this.seventhCardSource = this.imageSource;
+    this.highlightCardOne = false;
+    this.highlightCardTwo = false;
+    this.highlightCardThree = false;
+    this.highlightCardFour = false;
+    this.highlightCardFive = false;
+    this.highlightCardSix = false;
+    this.highlightCardSeven = false;
+    this.suitClicked = false;
+    this.cardClicked = false;
+    this.handStatement = "";
+    this.spadeClicked = false;
+    this.heartClicked = false;
+    this.diamondClicked = false;
+    this.clubClicked = false;
+    this.value = 0;
+    this.suit = 0;
+    this.currentlyLoaded = false;
+  }
 
 }
 
@@ -1477,6 +1597,7 @@ export class UpdatedHandAndTable {
   /*
   Normal deck of cards (each has suit and value), but also with whether they are highlighted, and the url
   */
+  nameOfSave:any;
   deckOfCards:HandAndTable;
   firstCardHighlighted:boolean;
   secondCardHighlighted:boolean;
@@ -1493,7 +1614,8 @@ export class UpdatedHandAndTable {
   sixthCardURL:string;
   seventhCardURL:string;
 
-  constructor(deckOfCards:HandAndTable, firstHighlight:boolean, secondHighlight:boolean, thirdHighlight:boolean, fourthHighlight:boolean, fifthHighlight:boolean, sixthHighlight:boolean, seventhHighlight:boolean, firstURL:string, secondURL:string, thirdURL:string, fourthURL:string, fifthURL:string, sixthURL:string, seventhURL:string) {
+  constructor(nameOfSave:any, deckOfCards:HandAndTable, firstHighlight:boolean, secondHighlight:boolean, thirdHighlight:boolean, fourthHighlight:boolean, fifthHighlight:boolean, sixthHighlight:boolean, seventhHighlight:boolean, firstURL:string, secondURL:string, thirdURL:string, fourthURL:string, fifthURL:string, sixthURL:string, seventhURL:string) {
+    this.nameOfSave = nameOfSave;
     this.deckOfCards = deckOfCards;
     this.firstCardHighlighted = firstHighlight;
     this.secondCardHighlighted = secondHighlight;

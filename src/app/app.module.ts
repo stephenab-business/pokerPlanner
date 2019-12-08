@@ -30,6 +30,7 @@ import { RestartComponent } from './restart/restart.component';
     BrowserModule,
     AppRoutingModule,
     ModalModule.forRoot(),
+    FormsModule,
     AngularFireModule.initializeApp({
       apiKey: "AIzaSyCZtSAE1gv_wbkj9apu09512s9kiykEvTw",
       authDomain: "poker-planner-5428a.firebaseapp.com",

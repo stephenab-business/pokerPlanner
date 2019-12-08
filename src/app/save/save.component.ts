@@ -23,14 +23,21 @@ export class SaveComponent implements OnInit {
   cardSix:Card = new Card(0,0);
   cardSeven:Card = new Card(0,0);
 
+  nameOfSave:any = "";
+
   private deckOfCards:HandAndTable = new HandAndTable(this.cardOne, this.cardTwo, this.cardThree, this.cardFour, this.cardFive, this.cardSix, this.cardSeven);
 
-  private updatedDeckOfCards:UpdatedHandAndTable = new UpdatedHandAndTable(this.deckOfCards, false, false, false, false, false, false, false, "", "", "", "", "", "", "");
+  private updatedDeckOfCards:UpdatedHandAndTable = new UpdatedHandAndTable(this.nameOfSave, this.deckOfCards, false, false, false, false, false, false, false, "", "", "", "", "", "", "");
 
-  constructor(private modalService: BsModalService, private data:PlannerDataService, private crud:FirebaseCrudService, private fb:FormBuilder, private db:AngularFireDatabase) {} 
+  inputField:any;
+
+  constructor(private modalService: BsModalService, private data:PlannerDataService, private crud:FirebaseCrudService, private fb:FormBuilder, private db:AngularFireDatabase) {
+
+  } 
 
 
   ngOnInit() {
+    this.data.currentlySaved.subscribe(nameOfSave => this.nameOfSave = nameOfSave);
     this.data.currentHandAndTable.subscribe(deckOfCards => this.updatedDeckOfCards = deckOfCards);
   }
  
@@ -40,14 +47,17 @@ export class SaveComponent implements OnInit {
    *
    */
 
-  inputField:string = "";
-
-  postData(): AngularFireList<HandAndTable> {
-    const defaultData = this.updatedDeckOfCards;
-    this.db.list('/cardDecks').push(defaultData).key = this.inputField;
-    return this.db.list('/cardDecks' + this.inputField);
+  changeNameOfSave(nameOfSave:any) {
+    this.data.changeCurrentlySaved(nameOfSave);
   }
 
+  postData(input:any): AngularFireList<UpdatedHandAndTable> {
+    this.changeNameOfSave(input);
+    const defaultData = this.updatedDeckOfCards;
+    this.db.list(this.db.list('/cardDecks').push(defaultData)).update('nameOfSave', {nameOfSave: input});
+    this.modalRef.hide();
+    return this.db.list('/cardDecks');
+  }
 
   /*
    *

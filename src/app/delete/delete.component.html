@@ -10,9 +10,9 @@
   <div class="modal-body">
     <p>Select which save you want to delete:</p>
     <div class="container">
-      <ul>
-        <li>{{ nameOfSave }}</li>
-      </ul>
+      <div class="list-group" *ngFor="let cardDecks of (cardDecks | async)">
+        <p (click)="delete(cardDecks.key)">{{cardDecks.key}}</p>
+      </div>
     </div>
   </div>
 </ng-template>

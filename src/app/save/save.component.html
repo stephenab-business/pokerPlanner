@@ -9,8 +9,8 @@
   <div class="modal-body">
     <p>Name for your hand:</p>
     <!-- Create a label for the input field -->
-    <input type="text" [(ngModel)]="inputField">
-    <button type="button" (click)="postData()">Submit</button>
+    <input #textbox type="text" [(ngModel)]="inputField"/>
+    <button type="button" (click)="postData(textbox.value)">Submit</button>
   </div>
   <!-- Input for the name of hand -->
   <input>
