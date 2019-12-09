@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { PlannerDataService } from "../planner-data.service";
@@ -25,13 +25,15 @@ export class SaveComponent implements OnInit {
 
   nameOfSave:any = "";
 
+  saveButtonDisabled:boolean = true;
+
   private deckOfCards:HandAndTable = new HandAndTable(this.cardOne, this.cardTwo, this.cardThree, this.cardFour, this.cardFive, this.cardSix, this.cardSeven);
 
   private updatedDeckOfCards:UpdatedHandAndTable = new UpdatedHandAndTable(this.nameOfSave, this.deckOfCards, false, false, false, false, false, false, false, "", "", "", "", "", "", "");
 
   inputField:any;
 
-  constructor(private modalService: BsModalService, private data:PlannerDataService, private crud:FirebaseCrudService, private fb:FormBuilder, private db:AngularFireDatabase) {
+  constructor(private modalService: BsModalService, private data:PlannerDataService, private crud:FirebaseCrudService, private fb:FormBuilder, private db:AngularFireDatabase, private cdRef:ChangeDetectorRef) {
 
   } 
 
@@ -40,6 +42,7 @@ export class SaveComponent implements OnInit {
     this.data.currentlySaved.subscribe(nameOfSave => this.nameOfSave = nameOfSave);
     this.data.currentHandAndTable.subscribe(deckOfCards => this.updatedDeckOfCards = deckOfCards);
   }
+
  
   /*
    *

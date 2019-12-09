@@ -64,4 +64,8 @@ export class PlannerDataService {
 
   private restartSource = new BehaviorSubject<boolean>(this.restarted);
   currentlyRestarted = this.restartSource.asObservable();
+
+  changeCurrentlyRestarted(value:boolean) {
+    this.restartSource.next(value);
+  }
 }

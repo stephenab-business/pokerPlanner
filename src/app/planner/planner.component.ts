@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { FirebaseCrudService } from '../firebase-crud.service';
 import { Observable } from 'rxjs';
@@ -32,9 +32,7 @@ export class PlannerComponent implements OnInit {
 
   currentNumberOfCardsCompleted:number = 0;
 
-  submitDisabled:boolean = true;
-
-  constructor(private storage: AngularFireStorage, private data:PlannerDataService, private modalService: BsModalService) {
+  constructor(private storage: AngularFireStorage, private data:PlannerDataService, private modalService: BsModalService, private cdRef:ChangeDetectorRef) {
     
   }
 
@@ -310,42 +308,49 @@ export class PlannerComponent implements OnInit {
       this.firstCard.setSuit(suit);
       this.firstCard.setValue(value);
       this.firstCardSource = this.firstCard.whichCardSource(this.firstCard);
+      this.cdRef.detectChanges();
       return this.firstCard;
     }
     else if (this.secondCardClicked == true) {
       this.secondCard.setSuit(suit);
       this.secondCard.setValue(value);
       this.secondCardSource = this.secondCard.whichCardSource(this.secondCard);
+      this.cdRef.detectChanges();
       return this.secondCard;
     }
     else if (this.thirdCardClicked == true) {
       this.thirdCard.setSuit(suit);
       this.thirdCard.setValue(value);
       this.thirdCardSource = this.thirdCard.whichCardSource(this.thirdCard);
+      this.cdRef.detectChanges();
       return this.thirdCard;
     }
     else if (this.fourthCardClicked == true) {
       this.fourthCard.setSuit(suit);
       this.fourthCard.setValue(value);
       this.fourthCardSource = this.fourthCard.whichCardSource(this.fourthCard);
+      this.cdRef.detectChanges();
       return this.fourthCard;
     }
     else if (this.fifthCardClicked == true) {
       this.fifthCard.setSuit(suit);
       this.fifthCard.setValue(value);
       this.fifthCardSource = this.fifthCard.whichCardSource(this.fifthCard);
+      this.cdRef.detectChanges();
       return this.sixthCard;
     }
     else if (this.firstHandCardClicked == true) {
       this.sixthCard.setSuit(suit);
       this.sixthCard.setValue(value);
       this.sixthCardSource = this.sixthCard.whichCardSource(this.sixthCard);
+      this.cdRef.detectChanges();
       return this.sixthCard;
     }
     else if (this.secondHandCardClicked == true) {
       this.seventhCard.setSuit(suit);
       this.seventhCard.setValue(value);
       this.seventhCardSource = this.seventhCard.whichCardSource(this.seventhCard);
+      this.cdRef.detectChanges();
       return this.seventhCard;
     }
     }
@@ -518,12 +523,19 @@ export class PlannerComponent implements OnInit {
     this.sixthCard = updatedDeck.deckOfCards.firstHandCard;
     this.seventhCard = updatedDeck.deckOfCards.secondHandCard;
     this.firstCardSource = updatedDeck.firstCardURL;
+    this.cdRef.detectChanges();
     this.secondCardSource = updatedDeck.secondCardURL;
+    this.cdRef.detectChanges();
     this.thirdCardSource = updatedDeck.thirdCardURL;
+    this.cdRef.detectChanges();
     this.fourthCardSource = updatedDeck.fourthCardURL;
+    this.cdRef.detectChanges();
     this.fifthCardSource = updatedDeck.fifthCardURL;
+    this.cdRef.detectChanges();
     this.sixthCardSource = updatedDeck.sixthCardURL;
+    this.cdRef.detectChanges();
     this.seventhCardSource = updatedDeck.seventhCardURL;
+    this.cdRef.detectChanges();
 
     if (updatedDeck.firstCardHighlighted == true) {
       this.highlight(0);
@@ -566,13 +578,20 @@ export class PlannerComponent implements OnInit {
     this.fifthCardClicked = false;
     this.firstHandCardClicked = false;
     this.secondHandCardClicked = false;
-    this.firstCardSource = "assets/images/Back Covers/Pomegranate.png"
+    this.firstCardSource = "assets/images/Back Covers/Pomegranate.png";
+    this.cdRef.detectChanges();
     this.secondCardSource = this.imageSource;
+    this.cdRef.detectChanges();
     this.thirdCardSource = this.imageSource;
+    this.cdRef.detectChanges();
     this.fourthCardSource = this.imageSource;
+    this.cdRef.detectChanges();
     this.fifthCardSource = this.imageSource;
+    this.cdRef.detectChanges();
     this.sixthCardSource = this.imageSource;
+    this.cdRef.detectChanges();
     this.seventhCardSource = this.imageSource;
+    this.cdRef.detectChanges();
     this.highlightCardOne = false;
     this.highlightCardTwo = false;
     this.highlightCardThree = false;
@@ -590,6 +609,10 @@ export class PlannerComponent implements OnInit {
     this.value = 0;
     this.suit = 0;
     this.currentlyLoaded = false;
+    this.currentlyRestarted = false;
+    this.currentNumberOfCardsCompleted = 0;
+    this.suitDisabled = true;
+    this.valueDisabled = true;
   }
 
 }

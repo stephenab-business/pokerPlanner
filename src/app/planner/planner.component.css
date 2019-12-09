@@ -1,15 +1,34 @@
+.one {
+  background-color: green;
+  border-left: 3px red solid;
+  border-right: 3px red solid;
+}
+
 .planner {
   background-color: green;
+  border: 3px red solid;
+}
+
+.hand-declare {
+  background-color: green;
+  padding: 0;
+  margin: 0;
+  font-size: 5em;
+  color: white;
+  text-shadow: 2px 2px #ff0000;
 }
 
 .cards {
-  background-color: yellow;
+  background-color: green;
   padding-top: 10px;
+  margin-top: 15px;
   margin-bottom: 10px;
+  border: 3px red solid;
+  border-radius: 7.5%;
 }
 
 .table-cards {
-  background-color: pink;
+  background-color: green;
 }
 
 .table-cards img {
@@ -18,7 +37,7 @@
 }
 
 .hand-cards {
-  background-color: purple;
+  background-color: green;
 }
 
 .hand-cards img {
@@ -27,9 +46,10 @@
 }
 
 .suits {
-  background-color: blue;
+  background-color: red;
   padding: 10px;
   margin-bottom: 10px;
+  border-radius: 10%;
 }
 
 .suits li {
@@ -48,6 +68,7 @@
 .values {
   background-color: red;
   padding: 10px;
+  border-radius: 10%;
 }
 
 .values li {
@@ -59,10 +80,29 @@
   border-radius: 15%;
 }
 
+.crud-buttons {
+  padding-top: 1.5em;
+}
+
 .crud-buttons li {
   padding-top: 0;
   padding-bottom: 0;
   padding: 25px;
+}
+
+.submitButton {
+  border-radius: 15%;
+  background-color: red;
+  border: none;
+}
+
+.submitButton:hover {
+  background-color: #CD0000;
+}
+
+.highlight {
+  border: 5px yellow solid;
+  border-radius: 7.5%;
 }
 
 /*

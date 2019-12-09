@@ -31,6 +31,7 @@ export class RestartComponent implements OnInit {
 
    onRestart() {
      this.currentlyRestarted = true;
+     this.data.changeCurrentlyRestarted(this.currentlyRestarted);
    }
 
   /*
@@ -46,7 +47,6 @@ export class RestartComponent implements OnInit {
   confirm(): void {
     this.modalRef.hide();
     this.onRestart();
-    console.log(this.currentlyRestarted);
   }
 
   decline(): void {

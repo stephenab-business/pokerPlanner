@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PlannerComponent } from './planner/planner.component';
 import { environment } from '../environments/environment';
+import { HeaderComponent } from './header/header.component';
 import { LoadComponent } from './load/load.component';
 import { SaveComponent } from './save/save.component';
 import { DeleteComponent } from './delete/delete.component';
@@ -25,6 +26,7 @@ import { RestartComponent } from './restart/restart.component';
     SaveComponent,
     DeleteComponent,
     RestartComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

@@ -5,6 +5,8 @@ header {
   width: 100%;
   background: green;
   padding: 1em;
+  padding-bottom: 0;
+  margin-bottom: 0;
   text-shadow: 2px 2px #ff0000;
   border-top-left-radius: 35%;
   border-top-right-radius: 35%;
