@@ -16,13 +16,21 @@ export class PlannerDataService {
   private nameOfSaveSource = new BehaviorSubject<any>(this.nameOfSave);
   currentlySaved = this.nameOfSaveSource.asObservable();
 
+
+
   // Save Method 
+
+
 
   changeCurrentlySaved(name:any) {
     this.nameOfSaveSource.next(name);
   }
 
+
+
   // Card Data Information
+
+
 
   cardOne:Card = new Card(0,0);
   cardTwo:Card = new Card(0,0);
@@ -39,26 +47,42 @@ export class PlannerDataService {
   private cardSource = new BehaviorSubject<UpdatedHandAndTable>(this.updatedDeckOfCards);
   currentHandAndTable = this.cardSource.asObservable();
 
+
+
   // Card Method
+
+
 
   changeUpdatedHandAndTable(updatedDeckOfCards:UpdatedHandAndTable) {
     this.cardSource.next(updatedDeckOfCards);
   }
 
+
+
   // Load Data Information
+
+
 
   private loaded = false;
 
   private loadedSource = new BehaviorSubject<boolean>(this.loaded);
   currentlyLoaded = this.loadedSource.asObservable();
 
+
+
   // Load Method
+
+
 
   changeCurrentlyLoaded(value:boolean) {
     this.loadedSource.next(value);
   }
 
+
+
   // Restart Information
+
+
 
   private restarted = false;
 

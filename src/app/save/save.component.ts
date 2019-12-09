@@ -25,8 +25,6 @@ export class SaveComponent implements OnInit {
 
   nameOfSave:any = "";
 
-  saveButtonDisabled:boolean = true;
-
   private deckOfCards:HandAndTable = new HandAndTable(this.cardOne, this.cardTwo, this.cardThree, this.cardFour, this.cardFive, this.cardSix, this.cardSeven);
 
   private updatedDeckOfCards:UpdatedHandAndTable = new UpdatedHandAndTable(this.nameOfSave, this.deckOfCards, false, false, false, false, false, false, false, "", "", "", "", "", "", "");

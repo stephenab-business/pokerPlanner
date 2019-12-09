@@ -1,10 +1,10 @@
-button {
+.restart {
   width: 8.5em;
   border-radius: 15%;
   background-color: red;
   border: none;
 }
 
-button:hover {
+.restart:hover {
 	background-color: #CD0000;
 }
