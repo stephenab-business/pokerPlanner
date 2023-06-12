@@ -1,27 +1,11 @@
 # PokerPlanner
+This project was created for my Introduction to Web Design and Development class and was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.12.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.12.
+## Purpose
+Using Angular, I created a web-application that a person could use to input what type of Poker cards they had in their hand. When all cards were inputted, it would notify the user what type of Texas Hold'em hand they had so that they could decide on their last bet.
 
-## Development server
+## Database
+Poker Planner utilized Firebase as its database, and could allow for the user to save their hands, update them, or delete them (CRUD).
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Results
+The application was unfortunately never finished due to the class ending, thus ending my need to finish it.
